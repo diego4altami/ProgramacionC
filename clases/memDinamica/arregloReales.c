@@ -16,7 +16,7 @@ int main(void)
     int tam;
     float reales;
     float *apReales;
-
+s
     printf("\nDame el tamaño de reales que desees sumar: \n");
     scanf(" %d",&tam);
 
