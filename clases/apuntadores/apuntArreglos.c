@@ -1,0 +1,31 @@
+/*
+@file apuntArreglos.c
+@brief Haga un programa en C que permita encontrar el promedio
+       de 5 valores enteros y que indique cuál fue el mayor y menor de los datos
+       Características del código: 
+       1) Haga un header file para las delcaraciones y tipos comunes.
+       2) Haga una función externa que calcule y entregue el promedio, el menor
+          y el mayor de los datos.
+@autor Diego Altamirano Tovar
+@fecha 29/08/2023
+*/
+
+#include "incluido.h"
+
+float darResultados(int tam, float arreglo[], float *min, float *max);
+void capturarArreglo(int tam, float arreglo[]);
+
+int main(void)
+{
+    float menor, mayor;
+    float arregloEnteros[TAM];
+    float promedio;
+
+    printf("\nlas direcciones de mi memoria son: de menor: %p, mayor: %p y arreglo: %p\n",&menor,&mayor,arregloEnteros);
+    capturarArreglo(TAM, arregloEnteros);
+    promedio = darResultados(TAM, arregloEnteros,&menor,&mayor);
+
+    printf("\nEl promedio es: %f el mayor es: %f y el menor es: %f\n", promedio, mayor, menor);
+
+    return 0;
+}
