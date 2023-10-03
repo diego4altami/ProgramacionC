@@ -54,6 +54,7 @@ extern void enQueue(char pal[], nodo **ptInicio,nodo ** ptUltimo)
 
 extern void imprimirListaFIFO(nodo *aux)
 {
+    printf("\n");
     while(aux != NULL)
     {
         printf("%s\t",aux->palabra);
@@ -61,4 +62,36 @@ extern void imprimirListaFIFO(nodo *aux)
     }
     printf("\n");
     return;
+}
+
+extern void deQueue(nodo **ptInicio,nodo **ptUltimo)
+{
+    nodo *nuevo;
+
+    nuevo = *ptInicio;
+
+
+    if((*ptInicio == NULL) && (*ptUltimo == NULL))
+    {
+        printf("\nCola vacía.\n");
+    }
+    else
+    {
+        if(*ptInicio==*ptUltimo) //Un solo nodo en cola.
+        {
+            printf("\nSe va a borrar la pabra : %s\n",nuevo->palabra);
+            *ptInicio = NULL;
+            *ptUltimo = NULL;
+            free(nuevo); 
+        }
+        else
+        {
+            printf("\nSe va a borrar la pabra : %s\n",nuevo->palabra);
+            *ptInicio = (*ptInicio)->next;
+            free(nuevo);
+        }
+    }
+
+    return;
+
 }
