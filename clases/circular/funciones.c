@@ -8,6 +8,13 @@
 
 */
 
+/*
+    @author Diego Altamirano Tovar
+    @brief 
+    @date 26/09/23
+    @param 
+    @return 
+*/
 extern void enQueueCirc(nodo **ptPrimero, nodo **ptUltimo, char nom[], int pri)
 {
     nodo *nuevo;
@@ -45,6 +52,22 @@ extern void enQueueCirc(nodo **ptPrimero, nodo **ptUltimo, char nom[], int pri)
 
 extern void imprimirColaCirc(nodo *first, nodo *last)
 {
+    nodo *nuevo = first;
+
+
+    if ((first == NULL) && (last == NULL))
+    {
+        printf("\nCola vacía.\n");
+        return;
+    }
+
+    do 
+    {
+        printf("\n%s\t", nuevo->nombre);
+        printf("%i\n", nuevo->prioridad);
+        nuevo = nuevo->next;
+    } while (nuevo != first);
+
 
     return;
 }

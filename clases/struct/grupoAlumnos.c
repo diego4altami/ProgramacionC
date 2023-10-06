@@ -34,6 +34,7 @@ int imprimirEnPantallaBinario(char nomArch[]);
 void cargarBinMem(int tam, tipoAlumno grupo[], char nomArch[]);
 void cargarTxtMem(int tam, tipoAlumno grupo[], char nomArch[]);
 int contarAlumnosText(char nomArch[]);
+int contarAlumnos(char nomArch[]);
 
 int main(int argc, char *argv[])
 {
@@ -70,7 +71,8 @@ int main(int argc, char *argv[])
             scanf(" %c",&opcion);
             if(opcion == 'b')
             {
-                tam = imprimirEnPantallaBinario("lista.bin");
+                imprimirEnPantallaBinario("lista.bin");
+                tam  = contarAlumnos("lista.bin");
                 grupo = (tipoAlumno*)malloc(tam*sizeof(tipoAlumno));
                 if(grupo==NULL)
                 {

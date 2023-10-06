@@ -187,3 +187,40 @@ extern void cargarTxtMem(int tam, tipoAlumno grupo[], char nomArch[])
 
     return;
 }
+
+extern int contarAlumnos(char nomArch[])
+{
+    int tamArch, num;
+    FILE *fp;
+
+    fp = fopen(nomArch,"r+b");
+    if(fp == NULL)
+    {
+        printf("\nArchivo no disponible.\n");
+    }
+    fseek(fp,0,SEEK_END);
+    tamArch = ftell(fp);
+    num = tamArch/sizeof(tipoAlumno);
+    fclose(fp);
+
+    return num;
+}
+
+extern void actualizarAlumno(int pos,char nomArch[])
+{
+    FILE *fp;
+    int tam, numAlumnos;
+    tipoAlumno alumno;
+
+    actualizarDatos(&alumno);
+    fp = fopen(nomArch,"r+b");
+        if(fp == NULL)
+        {
+            printf("\nArchivo no disponible.\n");
+        }
+    fseek(fp,(pos-1)*sizeof(tipoAlumno),SEEK_SET);
+    fwrite(&alumno,sizeof(tipoAlumno), 1, fp);
+    fclose(fp);
+
+    return; 
+}
