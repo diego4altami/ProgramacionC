@@ -1,0 +1,4 @@
+63	Juan Pérez	3.6
+54	Roberto Río	5.8
+81	Alberto Parera	2.9
+75	Alma Rocío	4.3

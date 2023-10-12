@@ -224,3 +224,22 @@ extern void actualizarAlumno(int pos,char nomArch[])
 
     return; 
 }
+
+extern int retotnatValor(char nomArch[])
+{
+    FILE *fp;
+    int tamArch, num;
+
+    fp = fopen(nomArch, "r+b");
+    if(fp == NULL)
+    {
+        printf("\nArchivo no disponible.\n");
+        exit(1);
+    }
+    fseek(fp, 0, SEEK_END);
+    tamArch = ftell(fp);
+    num = tamArch/sizeof(tipoAlumno);
+    fclose(fp);
+
+    return num;
+}

@@ -71,3 +71,5 @@ extern void imprimirColaCirc(nodo *first, nodo *last)
 
     return;
 }
+
+extern dequeueCirc()
