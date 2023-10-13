@@ -69,11 +69,46 @@ extern void borrarPrimero(refs *nav)
     return;
 }
 
-extern void borrarTodo(refs *nav)
+extern void borrarTodos(refs *nav)
 {
-    while()
+    char res;
+
+    printf("\n¿Quieres borrar todos los nodos? ['s' | 'n']:\n");
+    scanf(" %c", &res);
+    if(res == 's')
     {
-        borrarPrimero(nav);
+        do
+        {
+            borrarPrimero(nav);
+        } while ((nav->inicio != NULL) && (nav->fin != NULL)); 
+        imprimirListaDoble(*nav); 
     }
+
     return;
+}
+
+extern nodo *buscarAlumno(refs nav,int cta)
+{
+    nav.aux = nav.inicio; 
+
+    if(nav.aux == NULL)
+    {
+        printf("\nLista vacia. \n");
+    }
+    else
+    {
+        while(nav.aux != NULL)
+        {
+            if(cta == nav.aux->datos.cuenta)
+            {
+                return nav.aux;
+            }
+            else
+            {
+                nav.aux = nav.aux->der;
+            }
+        }
+    }
+
+    return nav.aux;
 }
