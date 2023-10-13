@@ -18,8 +18,8 @@ struct elemento
     };
 typedef struct elemento nodo;
 
-struct referencia
+struct referencias
     {
         nodo *inicio, *fin, *aux;
     };
-typedef struct referencia ref;
+typedef struct referencias refs;

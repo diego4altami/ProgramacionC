@@ -1,5 +1,11 @@
 #include "tiposDoble.h"
 
+void insertarListaDoble(refs *nav, alum dat);
+void imprimirListaDoble(refs nav);
+void borrarPrimero(refs *nav);
+void borrarSegundo(refs *nav);
+void borrarTodo(refs *nav);
+
 int main(int argc,char *argv[])
 {
     FILE *fp;
@@ -21,6 +27,13 @@ int main(int argc,char *argv[])
         insertarListaDoble(&navegador,datos);
     }
     fclose(fp);
+    imprimirListaDoble(navegador);
+    printf("\nSe borrarán dos nodos: \n");
+    borrarPrimero(&navegador);
+    imprimirListaDoble(navegador);
+    borrarSegundo(&navegador);
+    imprimirListaDoble(navegador);
+    borrarTodo(navegador);
     imprimirListaDoble(navegador);
 
     return 0;
