@@ -1,0 +1,6 @@
+setter	15	7
+cocker	14.5	10
+beagle	10.7	5
+doverman	12	8
+puddle	4.5	5
+yorkshire	2	3

@@ -3,17 +3,22 @@
 #include <string.h>
 
 struct mascotas
-     {
-        char raza[80];
-        int edad;
-        float peso;
-     };
+{
+  char raza[80];
+  float peso;
+  int edad;
+};
 typedef struct mascotas tipoMascota;
 
 struct elemento
     {
         tipoMascota datos;
-        struct elemento *next;
-        
+        struct elemento *izq, *der;
     };
-typedef struct elemento nodoPet;
+typedef struct elemento nodo;
+
+struct referencias
+    {
+        nodo *inicio, *fin, *aux;
+    };
+typedef struct referencias refs;
