@@ -40,6 +40,10 @@ extern void imprimirListaDoble(refs nav)
         printf("\nCuenta: %i Nombre: %s Promedio: %f\n", nav.aux->datos.cuenta,nav.aux->datos.nombre,nav.aux->datos.promedio);
         nav.aux=nav.aux->der;
     }
+    if((nav.inicio == NULL) && (nav.fin == NULL))
+    {
+        printf("\nLa lista se encuentra vacía.\n");
+    }
     return;
 }
 

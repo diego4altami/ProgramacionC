@@ -35,7 +35,6 @@ int main(int argc,char *argv[])
     int cuenta;
     nodo *nodoEntoncontrado;
 
-
     navegador.inicio = NULL;
     navegador.fin = NULL;
     navegador.aux = NULL;
@@ -52,24 +51,22 @@ int main(int argc,char *argv[])
     }
     fclose(fp);
     imprimirListaDoble(navegador);
-    /*printf("\nSe borrarán dos nodos: \n");
+    printf("\nSe borrará un nodo: \n");
     borrarPrimero(&navegador);
     imprimirListaDoble(navegador);
-    borrarSegundo(&navegador);
-    imprimirListaDoble(navegador);
     borrarTodos(&navegador);
-    imprimirListaDoble(navegador);*/
-    printf("\nDame un número de cuenta para buscar un alumno: \n");
-    scanf(" %d", &cuenta);
-    nodoEntoncontrado = buscarAlumno(navegador,cuenta);
-    if(nodoEntoncontrado == NULL)
-    {
-        printf("\nEl alumno no existe en el catálogo.\n");
-    }
-    else
-    {
-        printf("\nLa cuenta : %d le pertenece a %s, ",cuenta, nodoEntoncontrado->datos.nombre);
-        printf("que tiene el promedio: %f y está en la dirección de memoria: %p\n", nodoEntoncontrado->datos.promedio, nodoEntoncontrado);
-    }
+    imprimirListaDoble(navegador);
+    // printf("\nDame un número de cuenta para buscar un alumno: \n");
+    // scanf(" %d", &cuenta);
+    // nodoEntoncontrado = buscarAlumno(navegador,cuenta);
+    // if(nodoEntoncontrado == NULL)
+    // {
+    //     printf("\nEl alumno no existe en el catálogo.\n");
+    // }
+    // else
+    // {
+    //     printf("\nLa cuenta : %d le pertenece a %s, ",cuenta, nodoEntoncontrado->datos.nombre);
+    //     printf("que tiene el promedio: %f y está en la dirección de memoria: %p\n", nodoEntoncontrado->datos.promedio, nodoEntoncontrado);
+    // }
     return 0;
 }
