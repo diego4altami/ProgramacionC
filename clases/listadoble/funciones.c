@@ -47,7 +47,7 @@ extern void imprimirListaDoble(refs nav)
     return;
 }
 
-extern void borrarPrimero(refs *nav)
+extern void borrarNodo(refs *nav)
 {
     nav->aux = nav->inicio;
     if((nav->inicio == NULL) && (nav->fin == NULL))
@@ -69,7 +69,6 @@ extern void borrarPrimero(refs *nav)
             free(nav->aux);
         }
     }
-
     return;
 }
 
@@ -81,11 +80,10 @@ extern void borrarTodos(refs *nav)
     scanf(" %c", &res);
     if(res == 's')
     {
-        do
+        while ((nav->inicio != NULL) && (nav->fin != NULL))
         {
-            borrarPrimero(nav);
-        } while ((nav->inicio != NULL) && (nav->fin != NULL)); 
-        imprimirListaDoble(*nav); 
+            borrarNodo(nav);
+        }
     }
 
     return;
@@ -113,6 +111,6 @@ extern nodo *buscarAlumno(refs nav,int cta)
             }
         }
     }
-
+    
     return nav.aux;
 }
