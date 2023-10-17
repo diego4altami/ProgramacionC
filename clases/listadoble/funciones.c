@@ -114,3 +114,32 @@ extern nodo *buscarAlumno(refs nav,int cta)
     
     return nav.aux;
 }
+
+extern void borrarNodoCuenta(refs *nav, nodo *borra)
+{
+    nav->aux = nav->inicio;
+
+    if(nav->inicio == nav->fin)
+    {
+        nav->fin = NULL;
+        nav->fin = NULL;
+        free(borra);
+    }
+    else
+    {
+        if(borra->izq == NULL)
+        {
+            nav->inicio = nav->inicio->der;
+            nav->inicio->izq = NULL;
+            free(borra);            
+        }
+        else
+        {
+            nav->fin = nav->fin->izq;
+            nav->fin->der = NULL;
+            free(borra);        
+        }
+    }
+
+    return;
+}
