@@ -1,4 +1,20 @@
+/*
+@file funciones.c
+@brief Este programa incluye las funciones utilizadas en el programa listaDoble.c
+@author Diego Altamirano Tovar
+@date 17/10/2023
+*/
+
 #include "tiposDoble.h"
+
+/*
+    @brief Esta función crea una lista doble con datos obtenidos a partir de un 
+           archivo de texto.
+    @author Diego Altamirano Tovar
+    @date 17/10/23
+    @param dat es un struct de tipo alum que contiene el número de cuenta, el nombre y el promedio del alumno
+    @param nav es un apuntador de tipo referencias que tiene la dirección del inicio y fin de la lista.
+*/
 
 extern void insertarListaDoble(refs *nav, alum dat)
 {
@@ -31,6 +47,14 @@ extern void insertarListaDoble(refs *nav, alum dat)
     return;
 }
 
+/*
+    @brief Esta función imprime en pantalla los contenido de una lista doble que esta 
+           referenciada usando el apuntador nav. 
+    @author Diego Altamirano Tovar
+    @date 17/10/23
+    @param nav es un apuntador de tipo referencias que tiene la dirección del inicio y fin de la lista.
+*/
+
 extern void imprimirListaDoble(refs nav)
 {
     nav.aux = nav.inicio;
@@ -46,6 +70,13 @@ extern void imprimirListaDoble(refs nav)
     }
     return;
 }
+
+/*
+    @brief Esta función borra el primer nodo que se encuentre en la lista doble referenciada usando nav
+    @author Diego Altamirano Tovar
+    @date 17/10/23
+    @param nav es un apuntador de tipo referencias que tiene la dirección del inicio y fin de la lista.
+*/
 
 extern void borrarNodo(refs *nav)
 {
@@ -72,6 +103,13 @@ extern void borrarNodo(refs *nav)
     return;
 }
 
+/*
+    @brief Esta función borra todos los nodos que se encuentren en la lista doble referenciada usando nav
+    @author Diego Altamirano Tovar
+    @date 17/10/23
+    @param nav es un apuntador de tipo referencias que tiene la dirección del inicio y fin de la lista.
+*/
+
 extern void borrarTodos(refs *nav)
 {
     char res;
@@ -88,6 +126,16 @@ extern void borrarTodos(refs *nav)
 
     return;
 }
+
+/*
+    @brief Esta función busca un alumno dentro de una lista circular referenciada usando nadv, busca el numero de cuenta previa
+           previamente dado
+    @author Diego Altamirano Tovar
+    @date 17/10/23
+    @param nav es un apuntador de tipo referencias que tiene la dirección del inicio y fin de la lista.
+    @param cta es un entero que contiene el número de cuenta que se va a buscar dentro del arreglo
+    @return regresa un nodo que contiene la dirección del nodo encontrado
+*/
 
 extern nodo *buscarAlumno(refs nav,int cta)
 {
@@ -114,6 +162,16 @@ extern nodo *buscarAlumno(refs nav,int cta)
     
     return nav.aux;
 }
+
+/*
+    @brief Esta función crea una lista doble con datos de perros a partir de un 
+           archivo de texto, también calcula el promedio de las edades de los perros en la lista.
+    @author Diego Altamirano Tovar
+    @date 14/10/23
+    @param archNom es un char que contiene el nombre del archvio a analizar
+    @param nav es un apuntador de tipo referencias que tiene la dirección del inicio y fin de la lista.
+    @return prom es un float que contiene el promedio de las edades de los perros.
+*/
 
 extern void borrarNodoCuenta(refs *nav, nodo *borra)
 {

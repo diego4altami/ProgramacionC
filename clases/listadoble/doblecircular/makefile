@@ -1,14 +1,14 @@
 #Este es un ejemplo para  la compilación modular automática utilizando MAKE
 
-#Para lograr mi objetivo del listaDoble formulas.exe hago esto
+#Para lograr mi objetivo del listaDobleCirc formulas.exe hago esto
 
-listaDoble.exe: listaDoble.o funciones.o tiposDoble.h
-	gcc listaDoble.o funciones.o -o listaDoble.exe 
+listaDobleCirc.exe: listaDobleCirc.o funciones.o deftipos.h
+	gcc listaDobleCirc.o funciones.o -o listaDobleCirc.exe 
 
-#Para lograr el objetivo del objeto listaDoble.o hago esto 
+#Para lograr el objetivo del objeto listaDobleCirc.o hago esto 
 
-listaDoble.o: listaDoble.c 
-	gcc -c listaDoble.c
+listaDobleCirc.o: listaDobleCirc.c 
+	gcc -c listaDobleCirc.c
 
 #Para lograr el objetivo del objeto funciones.o hago esto
 
