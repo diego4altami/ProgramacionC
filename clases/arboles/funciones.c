@@ -93,6 +93,14 @@ extern void recorrer(nodo *aux) // en orden ascendente
 
     return;
 }
+/*
+ * @brief Esta función recibe un puntero de referencia y recorre
+ * el árbol de izquierda a derecha de forma recursiva.
+ * Imprime en pantalla el recorrido.
+ * @author/autor Guillermo Gómez Abascal
+ * @param *aux es un puntero de tipo nodo.
+ * @return aux es un puntero de tipo nodo que apunta al raíz del árbol construido.
+ */
 
 extern void imprimirOrdenados(nodo *aux, FILE *fp)
 {

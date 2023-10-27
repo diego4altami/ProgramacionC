@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
    nodo *raiz;
    int numero, resultado;
    FILE *fp;
-   FILE *fp2;
 
    raiz = NULL;
    fp = fopen(argv[1], "r");
