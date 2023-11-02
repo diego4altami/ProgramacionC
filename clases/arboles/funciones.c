@@ -45,12 +45,12 @@ extern nodo *insertarNodArbol(nodo *pt, int num)
     if(aux == NULL) pt = nuevo;
     while((aux != NULL) && (salir != 0))
     {
-        if(num == aux->num)
-        {
-            printf("\n El número %i esta repetido\n ", num); 
-            free(nuevo); 
-            return pt;
-        }
+        // if(num == aux->num)
+        // {
+        //     printf("\n El número %i esta repetido\n ", num); 
+        //     free(nuevo); 
+        //     return pt;
+        // }
         if(num > aux->num) //mover a la derecha
         {
             if(aux->der != NULL) aux = aux->der;
@@ -60,7 +60,7 @@ extern nodo *insertarNodArbol(nodo *pt, int num)
                 salir = 0;
             }
         }
-        if(num < aux->num) //mover a la izquierda
+        if(num <= aux->num) //mover a la izquierda
         {
             if(aux->izq != NULL) aux = aux->izq;
             else
@@ -111,4 +111,24 @@ extern void imprimirOrdenados(nodo *aux, FILE *fp)
         imprimirOrdenados(aux->der, fp);  
     }
     return;
+}
+
+nodo *buscarDirecto(int busca, nodo *aux)
+{
+    int comparaciones = 1;
+    while((aux != NULL) && (aux->num != busca))
+    {
+        if(busca < aux->num)
+        {
+            aux = aux->izq;
+        }
+        else
+        {
+            aux = aux->der;
+        }
+        comparaciones++;
+    }
+    printf("\nSe realizaron %d comparaciones. \n", comparaciones);
+    printf("\nSe llego al nivel %d. \n", comparaciones-1);
+    return aux;
 }

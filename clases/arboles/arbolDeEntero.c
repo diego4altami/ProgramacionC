@@ -23,10 +23,11 @@
 nodo *insertarNodArbol(nodo *pt, int num);
 void recorrer(nodo *pt);
 void imprimirOrdenados(nodo *pt, FILE *fp);
+nodo *buscarDirecto(int busca,nodo *pt);
 
 int main(int argc, char *argv[])
 {
-   nodo *raiz;
+   nodo *raiz, *temp;
    int numero, resultado;
    FILE *fp;
 
@@ -56,5 +57,16 @@ int main(int argc, char *argv[])
    imprimirOrdenados(raiz, fp);
    fclose(fp);
 
+   printf("\nDame el número que desea buscar: \n");
+   scanf("%d", &numero);
+   temp = buscarDirecto(numero, raiz);
+   if(temp == NULL)
+   {
+      printf("\nBusqueda sin éxito, el dato no está en el árbol\n");
+   }
+   else
+   {
+      printf("\nEn la dirección %p está %d\n", temp, temp->num);
+   }
    return 0;
 }
