@@ -5,7 +5,6 @@
 @date 17/10/2023
 */
 
-
 /*
     @brief Esta función crea una lista doble circular con datos obtenidos a partir de un 
            archivo de texto.
