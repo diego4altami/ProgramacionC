@@ -43,7 +43,7 @@ typedef struct elemento nodo;
 struct elementotipocarro
     {
         datcar datos;
-        nodo *next;
+        struct elementotipocarro *next;
     };
 typedef struct elementotipocarro nodocar;
 

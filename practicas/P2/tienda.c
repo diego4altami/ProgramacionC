@@ -17,22 +17,27 @@ int main (int argc, char *argv[])
         exit(1);
     }
     navegador->refscirc = (refs *)malloc(sizeof(refs));
-    if (navegador->refscirc == NULL) {
-        printf("Error al asignar memoria para refscirc\n");
+    if (navegador == NULL) 
+    {
+        printf("No hay memoria suficiente\n");
         exit(1);
-    }   
+    } 
     navegador->refslin = (refs *)malloc(sizeof(refs));
-    if (navegador->refslin == NULL) {
-        printf("Error al asignar memoria para refscirc\n");
+    if (navegador == NULL) 
+    {
+        printf("No hay memoria suficiente\n");
         exit(1);
-    }   
-    navegador->refscirc->inicio == NULL;
-    navegador->refscirc->fin == NULL;
-    navegador->refscirc->aux == NULL;
+    }
 
-    navegador->refslin->inicio == NULL;
-    navegador->refslin->fin == NULL;
-    navegador->refslin->aux == NULL;
+    navegador->refscirc->inicio = NULL;
+    navegador->refscirc->fin = NULL;
+    navegador->refscirc->aux = NULL;
+
+    navegador->refslin->inicio = NULL;
+    navegador->refslin->fin = NULL;
+    navegador->refslin->aux = NULL;
+
+    navegador->iniciocar = NULL;
 
     if(argc != 3) 
     {

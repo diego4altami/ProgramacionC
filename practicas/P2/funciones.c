@@ -10,7 +10,6 @@ extern void insertarCola(cat1 dat1, refs *refscirc)
         printf("\nNo hay memoria disponible\n");
         exit(1);
     }
-    
     nuevo->datos1 = dat1;
     if((refscirc->inicio == NULL) && (refscirc->fin == NULL))
     {
@@ -80,7 +79,6 @@ extern void leerTxt(char *nomArch, nav *nav)
         }
         else if((strcmp("Ropa", datos1.categoria) == 0) || (strcmp("Hogar", datos1.categoria) == 0) || (strcmp("Música", datos1.categoria) == 0))
         {
-            printf(" %f\n", datos1.precio);
             datos2.clave = datos1.clave;
             strcpy(datos2.categoria, datos1.categoria);
             strcpy(datos2.producto, datos1.producto);
@@ -127,56 +125,8 @@ extern void leerBin(char *nomArch, nav *nav)
     return;
 }
 
-extern void imprimirListaDobleCirc(refs fila)
+extern void imprimirListaDobleCirc(refs refscirc)
 {
-    fila.aux = fila.inicio;
-
-    if((fila.inicio == NULL) && (fila.fin == NULL))
-    {
-        printf("\nNo puedo imprimir una lista vacía.\n");
-    }
-    else
-    {
-        do
-       {
-            printf("\nClaeve: %d", fila.aux->datos1.clave);
-            printf("\tCategoría: %s", fila.aux->datos1.categoria);
-            printf("\tProducto: %s", fila.aux->datos1.producto);
-            printf("\tPrecio: %f\n\n", fila.aux->datos1.precio);
-            printf("\tInventario: %d\n\n", fila.aux->datos1.inventario);
-            fila.aux = fila.aux->der;
-       }while(fila.aux != fila.inicio); 
-    }
-
-    return;
-}
-
-extern void imprimirListaDoble(refs nav)
-{
-    nav.aux = nav.inicio;
-
-    if((nav.inicio == NULL) && (nav.fin == NULL))
-    {
-        printf("\nLista vacía.\n");
-    }
-    while(nav.aux != NULL)
-    {
-        printf("\nClaeve: %d", nav.aux->datos2.clave);
-        printf("\tCategoría: %s", nav.aux->datos2.categoria);
-        printf("\tProducto: %s", nav.aux->datos2.producto);
-        printf("\tPrecio: %f\n\n", nav.aux->datos2.precio);
-        printf("\tInventario: %d\n\n", nav.aux->datos2.inventario);
-        nav.aux = nav.aux->der;
-    }
-
-    return;
-}
-
-extern void navegarCategoria1(refs refscirc)
-{
-    char opc;
-    int flag;
-
     refscirc.aux = refscirc.inicio;
 
     if((refscirc.inicio == NULL) && (refscirc.fin == NULL))
@@ -186,34 +136,180 @@ extern void navegarCategoria1(refs refscirc)
     else
     {
         do
-        {
-            printf("\nClave: %d", refscirc.aux->datos1.clave);
+       {
+            printf("\nClaeve: %d", refscirc.aux->datos1.clave);
             printf("\tCategoría: %s", refscirc.aux->datos1.categoria);
             printf("\tProducto: %s", refscirc.aux->datos1.producto);
             printf("\tPrecio: %f\n\n", refscirc.aux->datos1.precio);
             printf("\tInventario: %d\n\n", refscirc.aux->datos1.inventario);
+            refscirc.aux = refscirc.aux->der;
+       }while(refscirc.aux != refscirc.inicio); 
+    }
+
+    return;
+}
+
+extern void imprimirListaDoble(refs refslin)
+{
+    refslin.aux = refslin.inicio;
+
+    if((refslin.inicio == NULL) && (refslin.fin == NULL))
+    {
+        printf("\nLista vacía.\n");
+    }
+    while(refslin.aux != NULL)
+    {
+        printf("\nClaeve: %d", refslin.aux->datos2.clave);
+        printf("\tCategoría: %s", refslin.aux->datos2.categoria);
+        printf("\tProducto: %s", refslin.aux->datos2.producto);
+        printf("\tPrecio: %f\n\n", refslin.aux->datos2.precio);
+        printf("\tInventario: %d\n\n", refslin.aux->datos2.inventario);
+        refslin.aux = refslin.aux->der;
+    }
+
+    return;
+}
+
+extern nodocar *push(nodocar *pt, datcar data)
+{
+    nodocar *nuevo;
+
+    nuevo = (nodocar *)malloc(sizeof(nodocar));
+    if(nuevo == NULL)
+    {
+        printf("\nNo hay memoria disponible.\n");
+        exit(1);
+    }
+    nuevo->datos = data;
+    nuevo->next = pt;
+    pt = nuevo;
+
+    return pt;
+}
+
+extern void agregarCarrito1(nav *nav)
+{
+    int compra;
+    datcar articulo;
+
+    printf("El inventario es: %i\n", nav->refscirc->aux->datos1.inventario);
+
+    printf("El prod es: %s\n", nav->refscirc->aux->datos1.producto);
+    printf("¿Cuántos artículos desea agregar?\n");
+    scanf(" %i", &compra);
+    if(compra > nav->refscirc->aux->datos1.inventario)
+    {
+        printf("\n No tenemos tantos en la tienda, vuelva a intentar con una menor cantidad\n");
+    }
+    else
+    {
+        nav->refscirc->aux->datos1.inventario = nav->refscirc->aux->datos1.inventario - compra;
+        strcpy(articulo.categoria, nav->refscirc->aux->datos1.categoria);
+        strcpy(articulo.producto, nav->refscirc->aux->datos1.producto);
+        articulo.precio = nav->refscirc->aux->datos1.precio;
+        articulo.cantidad = compra;
+        nav->iniciocar = push(nav->iniciocar, articulo);
+    }
+
+    return;
+}
+
+extern void agregarCarrito2(nav *nav)
+{
+    int compra;
+    datcar articulo;
+
+    printf("El inventario es: %i\n", nav->refslin->aux->datos2.inventario);
+
+    printf("El prod es: %s\n", nav->refslin->aux->datos2.producto);
+    printf("¿Cuántos artículos desea agregar?\n");
+    scanf(" %i", &compra);
+    if(compra > nav->refslin->aux->datos2.inventario)
+    {
+        printf("\n No tenemos tantos en la tienda, vuelva a intentar con una menor cantidad\n");
+    }
+    else
+    {
+        nav->refslin->aux->datos2.inventario = nav->refslin->aux->datos2.inventario - compra;
+        strcpy(articulo.categoria, nav->refslin->aux->datos2.categoria);
+        strcpy(articulo.producto, nav->refslin->aux->datos2.producto);
+        articulo.precio = nav->refslin->aux->datos2.precio;
+        articulo.cantidad = compra;
+        nav->iniciocar = push(nav->iniciocar, articulo);
+    }
+
+    return;
+}
+
+extern void mostrarCarrito(nodocar *pt)
+{
+    printf("\n Artículos guardados en el carrito:\n");
+    if(pt != NULL)
+    {
+        while(pt != NULL)
+        {
+            printf(" %s", pt->datos.producto);
+            pt = pt->next;
+        }
+    }
+    else
+    {
+        printf("\nLista vacía\n");
+    }
+    return;
+}
+
+extern void navegarCategoria1(nav *nav)
+{
+    char opc;
+    int flag;
+
+    nav->refscirc->aux = nav->refscirc->inicio;
+
+    if((nav->refscirc->inicio == NULL) && (nav->refscirc->fin == NULL))
+    {
+        printf("\nNo puedo imprimir una lista vacía.\n");
+    }
+    else
+    {
+        do
+        {
+            printf("\nClave: %d", nav->refscirc->aux->datos1.clave);
+            printf("\tCategoría: %s", nav->refscirc->aux->datos1.categoria);
+            printf("\tProducto: %s", nav->refscirc->aux->datos1.producto);
+            printf("\tPrecio: %f\n\n", nav->refscirc->aux->datos1.precio);
+            printf("\tInventario: %d\n\n", nav->refscirc->aux->datos1.inventario);
             printf("a) <- Anterior\tb) Salir\tc) Agregar al carrito\td) Siguiente ->");
             printf("\n\nSeleccione una opción: ");
             scanf(" %c", &opc);
-            if(opc == 'A' || opc == 'a'){
+            if(opc == 'A' || opc == 'a')
+            {
                 flag = 0;
-                refscirc.aux = refscirc.aux->izq;
+                printf(" Esta es la bandera :%i\n", flag);
+                nav->refscirc->aux = nav->refscirc->aux->izq;
             }
-            if(opc == 'd' || opc == 'D'){
+            if(opc == 'd' || opc == 'D')
+            {
                 flag = 0;
-                refscirc.aux = refscirc.aux->der;
+                printf(" Esta es la bandera :%i\n", flag);
+                nav->refscirc->aux = nav->refscirc->aux->der;
             }
-            if(opc == 'B' || opc == 'b'){
+            if(opc == 'B' || opc == 'b')
+            {
                 flag = 1;
+                printf(" Esta es la bandera :%i\n", flag);
             }
-            if(opc == 'c' || opc == 'C'){
+            if(opc == 'c' || opc == 'C')
+            {
                 flag = 0;
                 // system("clear");
-                if(refscirc.aux->datos1.inventario == 0){
+                if(nav->refscirc->aux->datos1.inventario == 0)
+                {
                     printf("El producto no está disponible por el momento.\n\n");
                 }
-                else{
-                    agregarCarrito(&refscirc.aux->datos1.inventario, refscirc.aux, &carr);
+                else
+                {
+                    agregarCarrito1(nav);
                 }
             }
         }while(flag == 0); 
@@ -222,48 +318,48 @@ extern void navegarCategoria1(refs refscirc)
     return;
 }
 
-extern void navegarCategoria2(refs refslin)
+extern void navegarCategoria2(nav *nav)
 {
 
     char opc;
     int flag = 0;
 
-    refslin.aux = refslin.inicio;
+    nav->refslin->aux = nav->refslin->inicio;
 
-    if((refslin.inicio == NULL) && (refslin.fin == NULL))
+    if((nav->refslin->inicio == NULL) && (nav->refslin->fin == NULL))
     {
         printf("\nLista vacía.\n");
     }
     while(flag != 1)
     {
-        printf("\nClave: %d", refslin.aux->datos2.clave);
-        printf("\tCategoría: %s", refslin.aux->datos2.categoria);
-        printf("\tProducto: %s", refslin.aux->datos2.producto);
-        printf("\tPrecio: %f\n\n", refslin.aux->datos2.precio);
-        printf("\tInventario: %d\n\n", refslin.aux->datos2.inventario);
+        printf("\nClave: %d", nav->refslin->aux->datos2.clave);
+        printf("\tCategoría: %s", nav->refslin->aux->datos2.categoria);
+        printf("\tProducto: %s", nav->refslin->aux->datos2.producto);
+        printf("\tPrecio: %f\n\n", nav->refslin->aux->datos2.precio);
+        printf("\tInventario: %d\n\n", nav->refslin->aux->datos2.inventario);
         printf("a) <- Anterior\tb) Salir\tc) Agregar al carrito\td) Siguiente ->");
         printf("\n\nSeleccione una opción: ");
         scanf(" %c", &opc);
         if(opc == 'A' || opc == 'a')
         {
             flag = 0;
-            if(refslin.aux->izq == NULL){
+            if(nav->refslin->aux->izq == NULL){
                 printf("Inicio de la lista. Ya no hay más elementos\n\n");
             }
             else{
-                refslin.aux = refslin.aux->izq;
+                nav->refslin->aux = nav->refslin->aux->izq;
             }
         }
         if(opc == 'd' || opc == 'D')
         {
             flag = 0;
-            if(refslin.aux->der == NULL)
+            if(nav->refslin->aux->der == NULL)
             {
                 printf("Fin de la lista.\n\n");
             }
             else
             {
-                refslin.aux = refslin.aux->der;
+                nav->refslin->aux = nav->refslin->aux->der;
             }
         }
         if(opc == 'B' || opc == 'b')
@@ -274,20 +370,19 @@ extern void navegarCategoria2(refs refslin)
         {
             flag = 0;
             // system("clear");
-            if(refslin.aux->datos2.inventario == 0)
+            if(nav->refslin->aux->datos2.inventario == 0)
             {
                 // system("clear");
                 printf("Este producto no está disponible por el momento.\n\n");
             }
             else
             {
-                agregarCarritocat2(&refslin.aux->datos2.inventario, refslin.aux, &carr);
+                agregarCarrito2(nav);
             }
         }
     }
     return;
 }
-
 
 
 extern void navegar(nav *nav)
@@ -304,20 +399,20 @@ extern void navegar(nav *nav)
         if(opcion == 'A' || opcion == 'a') {
             opcion = '\0';
             // system("clear");
-            navegarCategoria1(*(nav->refscirc));
+            navegarCategoria1(nav);
             // system("clear");
         }
         else if(opcion == 'B' || opcion == 'b'){
             opcion = '\0';
             // system("clear");
-            navegarCategoria2(*(nav->refslin));
+            navegarCategoria2(nav);
             // system("clear");
         }
-        // else if(opcion == 'C' || opcion == 'c'){
-        //     opcion = '\0';
-        //     mostrarCarrito(nav.carro);
-        //     printf("\n\n");
-        // }
+        else if(opcion == 'C' || opcion == 'c'){
+            opcion = '\0';
+            mostrarCarrito(nav->iniciocar);
+            printf("\n\n");
+        }
         else if(opcion == 'D' || opcion == 'd'){
             bandera = 1;
         }

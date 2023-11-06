@@ -1,0 +1,24 @@
+45	Bebés	Mamila de 450ml	230.00	23
+67	Bebés	Pañales Huggies Supreme	349.00	56
+89	Bebés	Asiento de bebé para el auto	699.00	45
+38	Bebés	Pijamas tipo mameluco	279.00	61
+8	Libros	Despues de Diciembre	339.00	7
+7	Libros	Boulevard	499.00	10
+4	Libros	Cazadore de sombras	298.00  7
+3	Libros	Buscando a Alaska	229.00  4
+12	Música	Bad Bunny YHLQMDLG	350.00	2
+98	Música	El Bebeto Ese Soy Yo	223.33	7
+10	Música	Luis Miguel Romances	415.99	3
+33	Música	Tame Impala Currents	130.00	4
+16	Ropa	playera roja Banana Republic	1000.00	4
+15	Ropa	chamarra  Old Navy	800.00	9
+11	Ropa	playera negra cuidado con el perro	100.00	32
+23	Ropa	playera azul Polo	2000.00	11
+17	Electrónica	TV UHD 32" Samsung	4999.99	3
+20	Electrónica	Nvidia 1660 SUPER EVGA	6099.00	13
+5	Electrónica	Alexa Amazon	1099.00	21
+1	Electrónica	Ryzen 5 5500 AMD	4999.99	12
+19	Hogar	Vajilla Gibson Home	975.39	86
+28	Hogar	Juego de Sartenes Jade	929.00	93
+37	Hogar	Bateria de cocina Ekco Rosa	899.00	74
+46	Hogar	Furtinture Sofa Cama	4399.00	87
