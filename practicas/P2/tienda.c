@@ -38,6 +38,7 @@ int main (int argc, char *argv[])
     navegador->refslin->aux = NULL;
 
     navegador->iniciocar = NULL;
+    navegador->fincar = NULL;
 
     if(argc != 3) 
     {

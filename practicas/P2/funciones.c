@@ -170,7 +170,7 @@ extern void imprimirListaDoble(refs refslin)
     return;
 }
 
-extern nodocar *push(nodocar *pt, datcar data)
+extern nodocar *enqueue(nav *nav, datcar data)
 {
     nodocar *nuevo;
 
@@ -181,10 +181,18 @@ extern nodocar *push(nodocar *pt, datcar data)
         exit(1);
     }
     nuevo->datos = data;
-    nuevo->next = pt;
-    pt = nuevo;
-
-    return pt;
+    nuevo->next = NULL;
+    if((nav->iniciocar == NULL) && (nav->fincar == NULL))
+    {
+        nav->iniciocar = nuevo;
+        nav->fincar = nuevo;
+    }
+    else
+    {
+        nav->fincar->next = nuevo;
+        nav->fincar = nuevo;
+    }
+    return nav->iniciocar;
 }
 
 extern void agregarCarrito1(nav *nav)
@@ -208,7 +216,7 @@ extern void agregarCarrito1(nav *nav)
         strcpy(articulo.producto, nav->refscirc->aux->datos1.producto);
         articulo.precio = nav->refscirc->aux->datos1.precio;
         articulo.cantidad = compra;
-        nav->iniciocar = push(nav->iniciocar, articulo);
+        nav->iniciocar = enqueue(nav, articulo);
     }
 
     return;
@@ -235,7 +243,7 @@ extern void agregarCarrito2(nav *nav)
         strcpy(articulo.producto, nav->refslin->aux->datos2.producto);
         articulo.precio = nav->refslin->aux->datos2.precio;
         articulo.cantidad = compra;
-        nav->iniciocar = push(nav->iniciocar, articulo);
+        nav->iniciocar = enqueue(nav, articulo);
     }
 
     return;

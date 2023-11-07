@@ -43,7 +43,7 @@ typedef struct elemento nodo;
 struct elementotipocarro
     {
         datcar datos;
-        struct elementotipocarro *next;
+        struct elementotipocarro *next ;
     };
 typedef struct elementotipocarro nodocar;
 
@@ -56,7 +56,7 @@ typedef struct referencias refs;
 struct navegacion
     {
         refs *refscirc, *refslin;
-        nodocar *iniciocar;
+        nodocar *iniciocar, *fincar;
     };
 typedef struct navegacion nav;
 
