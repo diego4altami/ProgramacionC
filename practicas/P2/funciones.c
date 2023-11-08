@@ -538,12 +538,79 @@ void crearBin(refs refscirc, refs refslin)
     return;
 }
 
-void modificarCarrito(nodocar *pt, nav *nav)
+void modificarCarrito(nav *nav)
 {
-    mostrarCarrito(nav->iniciocar);
+    nodocar *aux;
+    char opc;
+    int flag = 0;
 
-    printf("\nDeseas aumentar o disminuir la cantidad de un prodúcto en tu carrito ");
+    aux = nav->iniciocar;
 
+    if(nav->iniciocar == NULL)
+    {
+        printf("\nLista vacía.\n");
+    }
+    else
+    {
+        do{
+            printf("\tCategoría: %s", nav->iniciocar->datos.categoria);
+            printf("\tProducto: %s", nav->iniciocar->datos.producto);
+            printf("\tPrecio: %f\n\n", nav->iniciocar->datos.precio);
+            printf("\t cantidad: %d\n\n", nav->iniciocar->datos.cantidad);
+            printf("a) Ir al inicio del carrito\tb) Regresar al menú\td) Siguiente ->, e) Salir del programa\n");
+            printf("f) Borrar producto\tg) modificar cantidad\th) Borrar todo el carrito\n");
+            printf("\n\nSeleccione una opción: ");
+            scanf(" %c", &opc);
+            if(opc == 'A' || opc == 'a')
+            {
+                flag = 0;
+                if( aux == nav->iniciocar){
+                    printf("Inicio de la lista. Ya no hay más elementos\n\n");
+                }
+                else{
+                    aux = nav->iniciocar;
+                }
+            }
+            if(opc == 'd' || opc == 'D')
+            {
+                flag = 0;
+                if(aux == nav->fincar)
+                {
+                    printf("Fin de la lista.\n\n");
+                }
+                else
+                {
+                    aux = aux->next;
+                }
+            }
+            if(opc == 'B' || opc == 'b')
+            {
+                flag = 1;
+            }
+            if(opc == 'E'||opc == 'e')
+            {
+                printf("¿Desea salir completamente del programa?, se borrarán los productos guardados en el carrito. <s|n> \n");
+                scanf(" %c", &opc);
+                if(opc == 's')
+                {
+                    exit(1);
+                }
+            }
+            if(opc == 'F'||opc == 'f')
+            {
+                
+            }
+            if(opc == 'G'||opc == 'g')
+            {
+
+            }
+            if(opc == 'H'||opc == 'h')
+            {
+
+            }
+        }while(flag == 0);
+
+    }
     return;
 }
 
@@ -555,7 +622,7 @@ extern void navegar(nav *nav)
     bandera = 0;
 
     do {
-        printf("A) Visualizar categoría 1\nB) Visualizar categoría 2 \nC) Comprar\nD) Salir E)Ver o modificar carrito\n");
+        printf("A) Visualizar categoría 1\nB) Visualizar categoría 2 \nC) Comprar\nD) Salir \nE)Ver o modificar carrito\n");
         printf("Seleccione una opción: ");
         scanf(" %c", &opcion);
         if(opcion == 'A' || opcion == 'a') {
@@ -582,13 +649,13 @@ extern void navegar(nav *nav)
             }
             else if(opcar == 'B' || opcar == 'b')
             {
-                modificarCarrito(nav->iniciocar, nav);
+                modificarCarrito(nav);
             }
             printf("\n\n");
         }
         else if(opcion == 'E' || opcion == 'e')
         {
-
+            modificarCarrito(nav);
         }
         else if(opcion == 'D' || opcion == 'd'){
             printf("Ha realizado %i compras.  \n", i);
