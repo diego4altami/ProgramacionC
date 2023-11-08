@@ -3,17 +3,22 @@
 #include <stdlib.h>
 #include <time.h>
 
-/*Cantidad de atomos*/
-float posicion[3][3],R[10][3],V[3][3],a=4.0651,n=11,RHO[3][3],m=8,sumaV,sumaRHO,U,c=53.581;
-
-
 int main (void)
 {
+    /*Cantidad de atomos*/
+
+    float posicion[3][3],R[10][3],V[3][3];
+    float a=4.0651,n=11;
+    float RHO[3][3];
+    float m=8;
+    float sumaV;
+    float sumaRHO,U;
+    float c=53.581;
 
 
     /*CASO 1: FILA*/
     /*LLENAR POSICIONES*/
-    for(float i=0; i<10 ;i++)
+    for(float i=0; i<100 ;i++)
     {
         for (int fila=0; fila<3;fila++)
         {
@@ -33,91 +38,93 @@ int main (void)
                     posicion[fila][columna]=fila-i/100;
                 }
                 printf("%.2f\t", posicion[fila][columna]);
-                printf("\n");
             }
         }
+                printf("\n");
     }
 
     /*CALCULAR R*/
-    for (int fila=1;fila<3;fila++)
+    printf("Distancias\n"); 
+    for(float i=0; i<100 ;i++)
     {
-        for(int columna=0;columna<3;columna++)
+        for (int fila=1;fila<3;fila++)
         {
-            if(columna==fila)
+            for(int columna=0;columna<3;columna++)
             {
-                R[fila][columna]=0;
+                if(columna==fila)
+                {
+                    R[fila][columna]=0;
+                }
+                if (fila==1 && columna==0)
+                {
+                    R[fila][columna]=posicion[fila][columna];
+                }
+                if(fila>1 && fila!=columna)
+                {
+                    R[fila][columna]= sqrt(pow((posicion[fila][columna])-(posicion[columna][columna]),2)+pow((posicion[fila][columna+1]-posicion[columna][columna+1]),2)+pow((posicion[fila][columna+2]-posicion[columna][columna+fila]),2));
+                }
+                printf("%.2f\t", R[fila][columna]);
             }
-            if (fila==1 && columna==0)
-            {
-                R[fila][columna]=posicion[fila][columna];
-            }
-            if(fila>1 && fila!=columna)
-            {
-                R[fila][columna]= sqrt(pow((posicion[fila][columna])-(posicion[columna][columna]),2)+pow((posicion[fila][columna+1]-posicion[columna][columna+1]),2)+pow((posicion[fila][columna+2]-posicion[columna][columna+fila]),2));
-            }
-        }
-    }
-    printf("\n");
-
-
-    /*PRINT DISTANCIAS*/
-    printf("Distancias\n");
-    for (int fila=0;fila<3;fila++)
-    {
-        for(int columna=0;columna<3;columna++)
-        {
-            printf("%.2f\t", R[fila][columna]);
         }
         printf("\n");
     }
 
 
     /*CALCULAR V*/
-    for (int fila=0;fila<3;fila++)
+    for(float i=0; i<100 ;i++)
     {
-        for(int columna=0;columna<3;columna++)
+        for (int fila=0;fila<3;fila++)
         {
-            if(fila==columna || R[fila][columna]==0)
+            for(int columna=0;columna<3;columna++)
             {
-                V[fila][columna]=0;
+                if(fila==columna || R[fila][columna]==0)
+                {
+                    V[fila][columna]=0;
+                }
+                else
+                {
+                    V[fila][columna]=pow(a/R[fila][columna],n);
+                }
             }
-            else
-            {
-                V[fila][columna]=pow(a/R[fila][columna],n);
-            }
+            printf("\n");
         }
-        printf("\n");
     }
 
 
     /*PRINT V*/
     printf("Valor de V:\n");
-    for (int fila=0;fila<3;fila++)
+    for(float i=0; i<100 ;i++)
     {
-        for(int columna=0;columna<3;columna++)
+        for (int fila=0;fila<3;fila++)
         {
-            sumaV=sumaV+V[fila][columna];
-            printf("%.2f\t", V[fila][columna]);
+            for(int columna=0;columna<3;columna++)
+            {
+                sumaV=sumaV+V[fila][columna];
+                printf(" %.2f\t", V[fila][columna]);
+            }
+            printf("\n");
         }
-        printf("\n");
     }
     printf("La suma de V es %f\n",sumaV);
 
 
     /*CALCULAR RHO*/
-    for (int fila=0;fila<3;fila++)
+    for(float i=0; i<100 ;i++)
     {
-        for(int columna=0;columna<3;columna++)
+        for (int fila=0;fila<3;fila++)
         {
-            if(fila==columna || R[fila][columna]==0)
+            for(int columna=0;columna<3;columna++)
             {
-                RHO[fila][columna]=0;
+                if(fila==columna || R[fila][columna]==0)
+                {
+                    RHO[fila][columna]=0;
+                }
+                else
+                {
+                    RHO[fila][columna]=pow(a/R[fila][columna],m);
+                }
             }
-            else
-            {
-                RHO[fila][columna]=pow(a/R[fila][columna],m);
-            }
-        }
+        }    
         printf("\n");
     }
 
