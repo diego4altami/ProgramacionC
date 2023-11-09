@@ -137,11 +137,11 @@ extern void imprimirListaDobleCirc(refs refscirc)
     {
         do
        {
-            printf("\nClaeve: %d", refscirc.aux->datos1.clave);
-            printf("\tCategoría: %s", refscirc.aux->datos1.categoria);
-            printf("\tProducto: %s", refscirc.aux->datos1.producto);
-            printf("\tPrecio: %f\n\n", refscirc.aux->datos1.precio);
-            printf("\tInventario: %d\n\n", refscirc.aux->datos1.inventario);
+            printf("Clave: %d\n", refscirc.aux->datos1.clave);
+            printf("Categoría: %s\n", refscirc.aux->datos1.categoria);
+            printf("Producto: %s\n", refscirc.aux->datos1.producto);
+            printf("Precio: %f\n", refscirc.aux->datos1.precio);
+            printf("Inventario: %d\n\n", refscirc.aux->datos1.inventario);
             refscirc.aux = refscirc.aux->der;
        }while(refscirc.aux != refscirc.inicio); 
     }
@@ -159,11 +159,11 @@ extern void imprimirListaDoble(refs refslin)
     }
     while(refslin.aux != NULL)
     {
-        printf("\nClaeve: %d", refslin.aux->datos2.clave);
-        printf("\tCategoría: %s", refslin.aux->datos2.categoria);
-        printf("\tProducto: %s", refslin.aux->datos2.producto);
-        printf("\tPrecio: %f\n\n", refslin.aux->datos2.precio);
-        printf("\tInventario: %d\n\n", refslin.aux->datos2.inventario);
+        printf("Clave: %d\n", refslin.aux->datos2.clave);
+        printf("Categoría: %s\n", refslin.aux->datos2.categoria);
+        printf("Producto: %s\n", refslin.aux->datos2.producto);
+        printf("Precio: %f\n", refslin.aux->datos2.precio);
+        printf("Inventario: %d\n\n", refslin.aux->datos2.inventario);
         refslin.aux = refslin.aux->der;
     }
 
@@ -255,10 +255,12 @@ extern void agregarCarrito2(nav *nav)
     int compra;
     datcar articulo;
 
-    printf("El inventario es: %i\n", nav->refslin->aux->datos2.inventario);
+    system("clear");
 
-    printf("El prod es: %s\n", nav->refslin->aux->datos2.producto);
-    printf("¿Cuántos artículos desea agregar?\n");
+
+    printf("\nEl producto es: %s\n", nav->refslin->aux->datos2.producto);
+    printf("El inventario disponible es: %i\n", nav->refslin->aux->datos2.inventario);
+    printf("\n¿Cuántos artículos desea agregar?\n");
     scanf(" %i", &compra);
     if(compra > nav->refslin->aux->datos2.inventario)
     {
@@ -547,6 +549,51 @@ void crearBin(refs refscirc, refs refslin)
     return;
 }
 
+void borrarTodoCarrito(nav *nav)
+{
+    if(nav->iniciocar == NULL)
+    {
+        printf("\nCarrito vacío.\n");
+    }
+    else
+    {   
+        while(nav->iniciocar != NULL)
+        {
+            printf("Borrando producto: %s\n", nav->iniciocar->datos.producto); // Impresión de depuración
+            if(strcmp(nav->refscirc->aux->datos1.categoria, nav->iniciocar->datos.categoria) == 0)
+            {
+                do {
+                    if(strcmp(nav->refscirc->inicio->datos1.producto, nav->iniciocar->datos.producto) == 0) 
+                    {
+                        nav->refscirc->inicio->datos1.inventario += nav->iniciocar->datos.cantidad;
+                        break;
+                    }
+                    nav->refscirc->inicio = nav->refscirc->inicio->der;
+                } while(nav->refscirc->inicio != nav->refscirc->inicio);
+            }
+            else if(strcmp(nav->refslin->inicio->datos2.categoria, nav->iniciocar->datos.categoria) == 0)
+            {
+                if(nav->refscirc->inicio == nav->refscirc->inicio) 
+                {
+                    while(nav->refslin->inicio != NULL) 
+                    {
+                        if(strcmp(nav->refslin->inicio->datos2.producto, nav->iniciocar->datos.producto) == 0) 
+                        {
+                            nav->refslin->inicio->datos2.inventario += nav->iniciocar->datos.cantidad;
+                            break;
+                        }
+                        nav->refslin->inicio = nav->refslin->inicio->der;
+                    }
+                }
+            }
+            deQueue(&nav->iniciocar, &nav->fincar);            
+        }
+        printf("Todos los productos han sido borrados del carrito.\n");
+    }
+
+    return;
+}
+
 void modificarCarrito(nav *nav) 
 {
     nodocar *aux;
@@ -568,8 +615,8 @@ void modificarCarrito(nav *nav)
             printf("Cantidad: %d\n\n", nav->iniciocar->datos.cantidad);
 
             printf("Opciones:\n");
-            printf("a) Ir al inicio del carrito   b) Regresar al menú   d) Siguiente\n");
-            printf("e) Salir del programa   f) Borrar producto   g) Modificar cantidad   h) Borrar todo el carrito\n");
+            printf("a) Ir al inicio del carrito c) Modificar cantidad   d) Siguiente\n");
+            printf("b) Regresar al menú   e) Salir del programa   g) Borrar todo el carrito\n");
             printf("Seleccione una opción: ");
             scanf(" %c", &opc);
 
@@ -578,9 +625,10 @@ void modificarCarrito(nav *nav)
                 case 'A':
                     flag = 0;
                     if (aux == nav->iniciocar) {
-                        printf("Inicio del carrito. Ya no hay más elementos\n\n");
+                        printf("Inicio del carrito.\n\n");
                     } else {
                         aux = nav->iniciocar;
+                        system("clear");
                     }
                     break;
                 case 'd':
@@ -590,6 +638,7 @@ void modificarCarrito(nav *nav)
                         printf("Fin del carrito.\n\n");
                     } else {
                         aux = aux->next;
+                        system("clear");
                     }
                     break;
                 case 'b':
@@ -598,23 +647,24 @@ void modificarCarrito(nav *nav)
                     break;
                 case 'e':
                 case 'E':
+                    system("clear");
                     printf("¿Desea salir completamente del programa?, se borrarán los productos guardados en el carrito. (s/n) \n");
                     scanf(" %c", &opc);
-                    if (opc == 's' || opc == 'S') {
+                    if (opc == 's' || opc == 'S') 
+                    {
+                        borrarTodoCarrito(nav);
+                        system("clear");
                         exit(1);
                     }
                     break;
-                case 'f':
-                case 'F':
-                    // Agregar lógica para borrar producto.
+                case 'c':
+                case 'C':
+
                     break;
                 case 'g':
                 case 'G':
-                    // Agregar lógica para modificar cantidad.
-                    break;
-                case 'h':
-                case 'H':
-                    // Agregar lógica para borrar todo el carrito.
+                    system("clear");
+                    borrarTodoCarrito(nav);
                     break;
                 default:
                     printf("Opción no válida. Por favor, seleccione una opción del menú.\n");

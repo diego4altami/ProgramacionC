@@ -58,9 +58,10 @@ int main (int argc, char *argv[])
         printf("Opción no reconocida: %s\n", argv[2]);
         exit(1);
     }
-    printf("\nImpresión de la cola (categoría 1): ");
+    printf("---------- PRODUCTOS --------\n\n");
+    printf("\nImpresión de la cola (categoría 1): \n\n");
     imprimirListaDobleCirc(*(navegador->refscirc));
-    printf("\nImpresión de la lista (categoría 2): ");
+    printf("\nImpresión de la lista (categoría 2): \n\n");
     imprimirListaDoble(*(navegador->refslin));
 
     navegar(navegador);
