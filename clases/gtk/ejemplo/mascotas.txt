@@ -1,0 +1,4 @@
+alemán  12.4    1
+cocker  21.4    2
+chihuahua   32.6    3
+golden  54.3    4
