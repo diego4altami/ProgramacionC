@@ -1,4 +1,4 @@
-alemán  12.4    1
-cocker  21.4    2
-chihuahua   32.6    3
-golden  54.3    4
+Pastor alemán	21.3	1
+cocker	4.6	2
+Golden	1.8	3
+Chihuahua	23.5	7

@@ -7,7 +7,7 @@ extern gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointe
     return(FALSE);
 }
 
-extern void closeTheApp(GtkWidget (botSalir), gpointer data)
+extern void closeTheApp(GtkWidget *botSalir, gpointer data)
 {
     gtk_main_quit();
 

@@ -7,6 +7,7 @@ void closeTheApp(GtkWidget (botSalir), gpointer data);
 
 //Funciones de C
 
+void imprimirListaDobleCirc(refsApp pMiApp);
 void crearListaDoble(char nomArch[], refsApp *pMiApp);
 
 int main(int argc, char *argv[])
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     miApp.aux = NULL;
 
     crearListaDoble(argv[1], &miApp);
+    imprimirListaDobleCirc(miApp);
 
     /* 1. Se inicializa el entorno */
     gtk_init(&argc, &argv);

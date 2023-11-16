@@ -14,13 +14,35 @@ extern void crearListaDoble(char nomArch[], refsApp *pMiApp)
         exit(1);
     }
     
-    while(fscanf(fp, " %[^\t] %f\t %d \n", datos.raza, &datos.peso, &datos.cliente)==3)
+    while(fscanf(fp, " %[^\t]%f\t%d\n", datos.raza, &datos.peso, &datos.cliente)==3)
     {
         insertarCola(datos, pMiApp);
     }
 
     fclose(fp);
 
+}
+
+extern void imprimirListaDobleCirc(refsApp pMiApp)
+{
+    pMiApp.aux = pMiApp.inicio;
+
+    if((pMiApp.inicio == NULL) && (pMiApp.fin == NULL))
+    {
+        printf("\nNo puedo imprimir una lista vacía.\n");
+    }
+    else
+    {
+        do
+       {
+            printf("Cliente: %d\n", pMiApp.aux->datos.cliente);
+            printf("Raza: %s\t", pMiApp.aux->datos.raza);
+            printf("Peso: %f\t", pMiApp.aux->datos.peso);
+            pMiApp.aux = pMiApp.aux->der;
+       }while(pMiApp.aux != pMiApp.inicio); 
+    }
+
+    return;
 }
 
 void insertarCola(tipoMascotas dat, refsApp *pMiApp)
