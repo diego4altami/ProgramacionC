@@ -3,7 +3,10 @@
 //Funciones de GTK, callbacks
 
 gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointer user_data);
-void closeTheApp(GtkWidget (botSalir), gpointer data);
+void closeTheApp(GtkWidget *botSalir, gpointer data);
+void visualizarVentanaAlta(GtkWidget *botAlta, gpointer pVentana);
+void darAltaMascota(GtkWidget *facilito, gpointer *pMiApp);
+void recorrerIzq(GtkWidget *pBotIzq, gpointer pMiApp);
 
 //Funciones de C
 
@@ -13,6 +16,7 @@ void crearListaDoble(char nomArch[], refsApp *pMiApp);
 int main(int argc, char *argv[])
 {
     refsApp miApp;
+    GtkWidget *facilito;
     GtkWidget *window1, *window2, *botAlta, *botSalir;
     GtkWidget *hbox1, *vbox1;
     GtkWidget *clienteLbl2, *razaLbl2, *pesoLbl2, *inClliente, *inRaza, *inPeso;
@@ -24,6 +28,7 @@ int main(int argc, char *argv[])
 
     crearListaDoble(argv[1], &miApp);
     imprimirListaDobleCirc(miApp);
+    miApp.aux = miApp.inicio;
 
     /* 1. Se inicializa el entorno */
     gtk_init(&argc, &argv);
@@ -52,6 +57,7 @@ int main(int argc, char *argv[])
     miApp.inRaza = gtk_entry_new();
     miApp.inPeso = gtk_entry_new();
     miApp.insertarNodo = gtk_button_new_with_label("Insertar mascota");
+    facilito = miApp.insertarNodo;
 
     gtk_window_set_title(GTK_WINDOW(window1), "Masctoas");
     gtk_container_set_border_width(GTK_CONTAINER(window1),100);
@@ -59,10 +65,12 @@ int main(int argc, char *argv[])
     gtk_container_set_border_width(GTK_CONTAINER(window2),100);
 
     /* 3. Registro de Callbakcs*/
-    g_signal_connect(G_OBJECT(window1), "delete event", G_CALLBACK(delete_event_handler), NULL);
-    g_signal_connect(G_OBJECT(window2), "delete event", G_CALLBACK(delete_event_handler), NULL);
+    g_signal_connect(G_OBJECT(window1), "delete_event", G_CALLBACK(delete_event_handler), NULL);
+    g_signal_connect(G_OBJECT(window2), "delete_event", G_CALLBACK(delete_event_handler), NULL);
     gtk_signal_connect(GTK_OBJECT(botSalir), "clicked", GTK_SIGNAL_FUNC(closeTheApp), NULL);
-
+    gtk_signal_connect(GTK_OBJECT(botAlta), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaAlta), window2);
+    gtk_signal_connect(GTK_OBJECT(miApp.insertarNodo), "clicked", GTK_SIGNAL_FUNC(darAltaMascota), &miApp);
+    gtk_signal_connect(GTK_OBJECT(miApp.botIzq), "clicked", GTK_SIGNAL_FUNC(recorrerIzq), &miApp);
 
     /* 4. Define jerarquía de instancias (pack de widgets)*/
 
@@ -75,7 +83,6 @@ int main(int argc, char *argv[])
     gtk_box_pack_start_defaults(GTK_BOX(hbox1), miApp.botDer);
     gtk_box_pack_start_defaults(GTK_BOX(vbox1), hbox1);
     gtk_container_add(GTK_CONTAINER(window1), vbox1);
-
 
     gtk_box_pack_start_defaults(GTK_BOX(hbox21), clienteLbl2);
     gtk_box_pack_start_defaults(GTK_BOX(hbox21), miApp.inCliente);
@@ -91,7 +98,6 @@ int main(int argc, char *argv[])
 
     /* 5. Mostrar los widgets */
     gtk_widget_show_all(window1);
-    gtk_widget_show_all(window2);
 
     /* 6. El programa se queda en loop*/
     gtk_main();

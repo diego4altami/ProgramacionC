@@ -35,9 +35,9 @@ extern void imprimirListaDobleCirc(refsApp pMiApp)
     {
         do
        {
-            printf("Cliente: %d\n", pMiApp.aux->datos.cliente);
+            printf("Cliente: %d\t", pMiApp.aux->datos.cliente);
             printf("Raza: %s\t", pMiApp.aux->datos.raza);
-            printf("Peso: %f\t", pMiApp.aux->datos.peso);
+            printf("Peso: %f\n", pMiApp.aux->datos.peso);
             pMiApp.aux = pMiApp.aux->der;
        }while(pMiApp.aux != pMiApp.inicio); 
     }
@@ -70,6 +70,13 @@ void insertarCola(tipoMascotas dat, refsApp *pMiApp)
         pMiApp->inicio->izq = nuevo;
         pMiApp->fin = nuevo;
     }
+
+    return;
+}
+
+void moverIzq(refsApp *pRefs)
+{
+    pRefs->aux = pRefs->aux->izq;
 
     return;
 }
