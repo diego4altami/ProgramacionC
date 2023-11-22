@@ -1,0 +1,7 @@
+sandía	8.00	12
+manzana	12.00	34
+pera	23.7	21
+durazno	10.9	31
+arándano	15.6	6
+narajna	34.7	3
+
