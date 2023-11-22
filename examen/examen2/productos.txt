@@ -1,5 +1,8 @@
+naranja	1.00	10
+nanche	2.00	11
 sandía	8.00	12
 manzana	12.00	34
-pera	23.7	21
-durazno	10.9	31
-arándano	15.6	6
+pera	20.00	21
+durazno	10.00	31
+arándano	15.00	6
+
