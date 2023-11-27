@@ -80,3 +80,10 @@ void moverIzq(refsApp *pRefs)
 
     return;
 }
+
+void moverDer(refsApp *pRefs)
+{
+    pRefs->aux = pRefs->aux->der;
+
+    return;
+}

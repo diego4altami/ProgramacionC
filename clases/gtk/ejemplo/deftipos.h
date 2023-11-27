@@ -19,7 +19,7 @@ typedef struct elemento nodo;
 struct appGTK
 {
     nodo *inicio, *fin, *aux;
-    GtkWidget *clienteLbl, *razalbl, *pesolbl;
+    GtkWidget *clienteLbl, *razalbl, *pesolbl, *imagenPet;
     GtkWidget *botIzq, *botDer, *insertarNodo;
     GtkWidget *inCliente, *inRaza, *inPeso;
 };

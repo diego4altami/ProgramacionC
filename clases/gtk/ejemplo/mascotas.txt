@@ -1,4 +1,7 @@
-Pastor alemán	21.3	1
 cocker	4.6	2
-Golden	1.8	3
-Chihuahua	23.5	7
+setter	1.8	3
+yorkshire	23.5	7
+MESSI	18.12	10
+doverman	12.8	12
+poodle	54.3	34
+

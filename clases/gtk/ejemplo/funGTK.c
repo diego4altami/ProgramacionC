@@ -3,6 +3,7 @@
 void insertarCola(tipoMascotas dat, refsApp *pMiApp);
 void imprimirListaDobleCirc(refsApp pMiApp);
 void moverIzq(refsApp *pRefs);
+void moverDer(refsApp *pRefs);
 
 extern gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
@@ -51,16 +52,31 @@ extern void recorrerIzq(GtkWidget *pBotIzq, gpointer pMiApp)
 
     referencias = (refsApp *)pMiApp;
 
-    sprintf(cliente,"%d", referencias->aux->datos.cliente);
-    gtk_label_set_text(GTK_LABEL(referencias->clienteLbl), cliente);
-    gtk_label_set_text(GTK_LABEL(referencias->razalbl), referencias->aux->datos.raza);
-    sprintf(peso,"%d", referencias->aux->datos.peso);
-    gtk_label_set_text(GTK_LABEL(referencias->pesolbl), peso);
     moverIzq(referencias);
+    gtk_image_set_from_file(GTK_IMAGE(referencias->imagenPet), referencias->aux->datos.raza);
     sprintf(cliente,"%d", referencias->aux->datos.cliente);
     gtk_label_set_text(GTK_LABEL(referencias->clienteLbl), cliente);
     gtk_label_set_text(GTK_LABEL(referencias->razalbl), referencias->aux->datos.raza);
-    sprintf(peso,"%d", referencias->aux->datos.peso);
+    sprintf(peso,"%f", referencias->aux->datos.peso);
+    gtk_label_set_text(GTK_LABEL(referencias->pesolbl), peso);
+
+    return;
+}
+
+extern void recorrerDer(GtkWidget *pBotDer, gpointer pMiApp)
+{
+    refsApp *referencias;
+    char cliente[10];
+    char peso[10];
+
+    referencias = (refsApp *)pMiApp;
+
+    moverDer(referencias);
+    gtk_image_set_from_file(GTK_IMAGE(referencias->imagenPet), referencias->aux->datos.raza);
+    sprintf(cliente,"%d", referencias->aux->datos.cliente);
+    gtk_label_set_text(GTK_LABEL(referencias->clienteLbl), cliente);
+    gtk_label_set_text(GTK_LABEL(referencias->razalbl), referencias->aux->datos.raza);
+    sprintf(peso,"%f", referencias->aux->datos.peso);
     gtk_label_set_text(GTK_LABEL(referencias->pesolbl), peso);
 
     return;

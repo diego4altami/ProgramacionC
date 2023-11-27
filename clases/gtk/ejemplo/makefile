@@ -3,5 +3,8 @@
 petsGTK.exe: petsGTK.o funGTK.o funC.o
 	gcc petsGTK.o funGTK.o funC.o -o petsGTK.exe `pkg-config --libs gtk+-2.0`
 
-petsGTK.o: petsGTK.c
+petsGTK.o: petsGTK.c funC.c funGTK.c
 	gcc -c petsGTK.c funC.c funGTK.c `pkg-config --cflags gtk+-2.0`
+
+	gcc text2.o -o text2.exe `pkg-config --libs gtk+-2.0`
+	gcc -c text2.c `pkg-config --cflags gtk+-2.0`
