@@ -22,7 +22,6 @@ extern void closeTheApp(GtkWidget *botSalir, gpointer data)
 extern void visualizarVentanaAlta(GtkWidget *botAlta, gpointer pVentana)
 {
     gtk_widget_show_all(pVentana);
-
     return;
 }
 
