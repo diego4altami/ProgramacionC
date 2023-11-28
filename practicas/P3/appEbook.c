@@ -8,6 +8,8 @@ void visualizarVentanaEditar(GtkWidget *botEditar, gpointer pVentana);
 void visualizarVentanaAviso(GtkWidget *botEditar, gpointer pVentana);
 void visualizarVentanaSecc(GtkWidget *botEditar, gpointer pVentana);
 void visualizarVentanaEscribir(GtkWidget *botEditar, gpointer pVentana);
+void crearTodo(GtkWidget *n, gpointer *pmiApp);
+void nombrarSecciones(GtkWidget *n, gpointer *pmiApp);
 
 /*
 void print_and_quit(GtkButton *was_clicked, gpointer user_data);
@@ -28,11 +30,15 @@ int main(int argc, char *argv[])
     GtkWidget *hBox41, *vBox4;    
     GtkWidget *avisoLbl, *texto1Lbl, *texto2Lbl;
     GtkWidget *seccLbl, *preguntaLbl;
-    GtkWidget *hBox51, *hBox52, *vBox5; 
-    GtkWidget *scrollWin, *texto, *separator;
+    GtkWidget *hBox51, *hBox52, *hBox53, *vBox5; 
+    GtkWidget *scrollWin, *separator;
     GtkWidget *capLbl, *hojaLbl;
     GtkWidget *hBox61, *hBox62, *hBox63, *vBox6; 
 
+    miApp.inicio = NULL;
+    miApp.fin = NULL;
+    miApp.aux = NULL;
+    miApp.aux = miApp.inicio;
 
     //1. inicializar entorno
     gtk_init(&argc, &argv);
@@ -86,6 +92,7 @@ int main(int argc, char *argv[])
     window5 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     hBox51 = gtk_hbox_new(FALSE, 10);
     hBox52 = gtk_hbox_new(FALSE, 10);
+    hBox53 = gtk_hbox_new(FALSE, 10);
     vBox5 = gtk_vbox_new(FALSE, 10);
     seccLbl = gtk_label_new("Sección:");
     preguntaLbl = gtk_label_new("¿Cuál es el título de esta sección?");
@@ -93,6 +100,7 @@ int main(int argc, char *argv[])
     miApp.seccNum = gtk_label_new("1");
     miApp.botSeccReg = gtk_button_new_with_label("Regresar");
     miApp.btoSeccSig = gtk_button_new_with_label("Siguiente");
+    miApp.botSigSeccNom = gtk_button_new_with_label("Nombrar siguiente sección");
 
     window6 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     hBox61 = gtk_hbox_new(FALSE, 10);
@@ -101,8 +109,8 @@ int main(int argc, char *argv[])
     vBox6 = gtk_vbox_new(FALSE, 10);
     capLbl = gtk_label_new("Capítulo: ");
     hojaLbl = gtk_label_new("Hoja: ");
-    texto = gtk_text_view_new();
-    gtk_widget_set_size_request(texto, 600,400);
+    miApp.texto = gtk_text_view_new();
+    gtk_widget_set_size_request(miApp.texto, 400, 300);
     scrollWin = gtk_scrolled_window_new(NULL, NULL);
     separator = gtk_hseparator_new();
     miApp.capNom = gtk_label_new("1");
@@ -125,27 +133,34 @@ int main(int argc, char *argv[])
     gtk_window_set_title(GTK_WINDOW(window4), "AVISO");
     gtk_container_set_border_width(GTK_CONTAINER(window4), 100);
 
-    gtk_window_set_title(GTK_WINDOW(window5), "Sección");
+    gtk_window_set_title(GTK_WINDOW(window5), "Nombrar secciones");
     gtk_container_set_border_width(GTK_CONTAINER(window5), 100);
 
-    gtk_window_set_title(GTK_WINDOW(window6), "Sección");
-    //gtk_window_resize(GTK_WINDOW(window6), 500, 500);
-    gtk_container_set_border_width(GTK_CONTAINER(window6), 10);
+    gtk_window_set_title(GTK_WINDOW(window6), "Escribir Ebook");
+    gtk_container_set_border_width(GTK_CONTAINER(window6), 100);
 
     //3. Registro de callbacks
     g_signal_connect(G_OBJECT(window1), "delete_event", G_CALLBACK(delete_event_handler), NULL);
     g_signal_connect(G_OBJECT(botSalir), "clicked", GTK_SIGNAL_FUNC(closeTheApp), NULL);
+
     g_signal_connect(G_OBJECT(botCrear), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaCrear), window2);
     g_signal_connect(G_OBJECT(miApp.botRegresar), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
+    g_signal_connect(G_OBJECT(miApp.botCrear), "clicked", G_CALLBACK(crearTodo), &miApp);
+
     g_signal_connect(G_OBJECT(botEditar), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaEditar), window3);
     g_signal_connect(G_OBJECT(miApp.edBotReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
+
     g_signal_connect(G_OBJECT(miApp.botCrear), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaAviso), window4);
     g_signal_connect(G_OBJECT(miApp.avBotReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window2);
+
     g_signal_connect(G_OBJECT(miApp.avBotSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSecc), window5);
     g_signal_connect(G_OBJECT(miApp.botSeccReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window4);
+    g_signal_connect(G_OBJECT(miApp.botSigSeccNom), "clicked", G_CALLBACK(nombrarSecciones), &miApp);
+
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaEscribir), window6);
     g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaEscribir), window6);
     g_signal_connect(G_OBJECT(miApp.botReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
+
 
     //4. Definiendo jerarquias
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), bienvenidoLbl);
@@ -194,9 +209,11 @@ int main(int argc, char *argv[])
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), hBox51);
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), preguntaLbl);
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), miApp.nomSecc);
-    gtk_box_pack_start_defaults(GTK_BOX(hBox52), miApp.botSeccReg);
-    gtk_box_pack_start_defaults(GTK_BOX(hBox52), miApp.btoSeccSig);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox52), miApp.botSigSeccNom);
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), hBox52);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox53), miApp.botSeccReg);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox53), miApp.btoSeccSig);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox5), hBox53);
     gtk_container_add(GTK_CONTAINER(window5), vBox5);
 
     gtk_box_pack_start_defaults(GTK_BOX(hBox61), capLbl);
@@ -204,7 +221,7 @@ int main(int argc, char *argv[])
     gtk_box_pack_start_defaults(GTK_BOX(hBox61), hojaLbl);
     gtk_box_pack_start_defaults(GTK_BOX(hBox61), miApp.numHoj);
     gtk_box_pack_start_defaults(GTK_BOX(vBox6), hBox61);
-    gtk_container_add(GTK_CONTAINER(scrollWin), texto);
+    gtk_container_add(GTK_CONTAINER(scrollWin), miApp.texto);
     gtk_box_pack_start_defaults(GTK_BOX(vBox6), scrollWin);
     gtk_box_pack_start_defaults(GTK_BOX(vBox6), separator);
     gtk_box_pack_start_defaults(GTK_BOX(vBox6), miApp.botSigPag);
@@ -221,7 +238,6 @@ int main(int argc, char *argv[])
 
     //6. El programa se queda en loop
     gtk_main();
-
 
     return 0; 
 }

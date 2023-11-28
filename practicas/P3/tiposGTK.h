@@ -2,8 +2,11 @@
 
 struct elemnto 
      {
+        char titSeccion[40];
         char texto[1800];
+        int numSecc;
         int numero;
+        char titulo[40];
         struct elemnto *next;
      };
 typedef struct elemnto hoja;
@@ -20,24 +23,20 @@ typedef struct seccion secc;
 struct repisa 
      {
         char titulo[40];
+        int numSeccs;
         secc *inicio, *fin, *aux;
+        struct repisa *izq, *der;
      };
 typedef struct repisa rep;
 
-struct referencias
-    {
-        rep *inicio, *fin, *aux;
-    };
-typedef struct referencias nomad;
-
 struct appGTK
 {
-    nomad *inicio, *fin, *aux;
+    rep *inicio, *fin, *aux;
     GtkWidget *titulo, *numSecc, *botRegresar, *botCrear;
     GtkWidget *avBotReg, *avBotSig;
     GtkWidget *edTitLbl, *edSeccLbl, *edPagLbl, *edBotReg, *edBotEdit;
-    GtkWidget *btoSeccSig, *botSeccReg, *nomSecc, *seccNum;
-    GtkWidget *botSigPag, *botReg, *botInsertarImg, *botGurdaryVer, *botSigSecc;
+    GtkWidget *btoSeccSig, *botSeccReg, *nomSecc, *seccNum, *botSigSeccNom;
+    GtkWidget *botSigPag, *botReg, *botInsertarImg, *botGurdaryVer, *botSigSecc, *texto;
     GtkWidget *capNom, *numHoj;
 };
 typedef struct appGTK refsApp;
