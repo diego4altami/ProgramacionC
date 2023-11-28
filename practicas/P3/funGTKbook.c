@@ -94,8 +94,8 @@ extern void nombrarSecciones(GtkWidget *n, gpointer *pmiApp)
 
     while(refs->aux->aux != NULL)
     {
-        strcpy(refs->aux->aux->titSeccion, gtk_entry_get_text(GTK_ENTRY(refs->nomSecc)));
-        refs->aux->aux->der;
+        strcpy(refs->aux->aux->titSeccion, gtk_entry_get_text(GTK_ENTRY(refs->nomSecc)));        
+        refs->aux->aux = refs->aux->aux->der;
     }
 
 

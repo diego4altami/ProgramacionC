@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
     miApp.inicio = NULL;
     miApp.fin = NULL;
     miApp.aux = NULL;
+    miApp.aux = miApp.inicio;
 
     sprintf(numsec, "%d", miApp.aux->aux->numSecc);
     //1. inicializar entorno
