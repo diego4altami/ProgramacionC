@@ -34,14 +34,12 @@ int main(int argc, char *argv[])
     GtkWidget *scrollWin, *separator;
     GtkWidget *capLbl, *hojaLbl;
     GtkWidget *hBox61, *hBox62, *hBox63, *vBox6; 
-    char numsec[10];
 
     miApp.inicio = NULL;
     miApp.fin = NULL;
     miApp.aux = NULL;
     miApp.aux = miApp.inicio;
 
-    sprintf(numsec, "%d", miApp.aux->aux->numSecc);
     //1. inicializar entorno
     gtk_init(&argc, &argv);
 
@@ -98,7 +96,7 @@ int main(int argc, char *argv[])
     seccLbl = gtk_label_new("Sección:");
     preguntaLbl = gtk_label_new("¿Cuál es el título de esta sección?");
     miApp.nomSecc = gtk_entry_new();
-    miApp.seccNum = gtk_label_new(numsec);
+    miApp.seccNum = gtk_label_new("1");
     miApp.botSeccReg = gtk_button_new_with_label("Regresar");
     miApp.btoSeccSig = gtk_button_new_with_label("Siguiente");
 
