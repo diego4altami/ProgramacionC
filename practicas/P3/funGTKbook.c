@@ -1,13 +1,17 @@
 #include "tiposGTK.h"
 
+#define MAX_CHARS 1800
+#define MAX_CHARS_PER_LINE 60
+
 void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs);
 void imprimirRepisa(refsApp refs);
+void sigeSec(char tituloSeccion[], rep *nRefs);
 
 extern gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
     gtk_main_quit();
 
-    return(FALSE); 
+    return(FALSE); // false propaga el evento
 }
 
 extern void closeTheApp(GtkWidget *botSalir, gpointer data)
@@ -63,8 +67,7 @@ extern void visualizarVentanaEscribir(GtkWidget *botAlta, gpointer pVentana)
     return;
 }
 
-extern void crearTodo(GtkWidget *n, gpointer *pmiApp)
-{
+extern void crearTodo(GtkWidget *n, gpointer *pmiApp){
     refsApp *refs;
     
     refs = (refsApp *)pmiApp;
@@ -82,22 +85,73 @@ extern void crearTodo(GtkWidget *n, gpointer *pmiApp)
     return;
 }
 
-extern void nombrarSecciones(GtkWidget *n, gpointer *pmiApp)
-{   
-    refsApp *refs;
-    rep *libro;
-    
-    refs = (refsApp *)pmiApp;
+extern void nombrarSeccion(GtkWidget *n, gpointer data)
+{
+    secc *seccionActual = (secc *)data; // Asegúrate de que data sea de tipo secc *
 
-    refs->aux = refs->fin;
-    refs->aux->aux = refs->aux->inicio;
+    if (seccionActual != NULL) {
+        const char *nombreSeccion = gtk_entry_get_text(GTK_ENTRY(n));
+        strncpy(seccionActual->titSeccion, nombreSeccion, sizeof(seccionActual->titSeccion) - 1);
+        seccionActual->titSeccion[sizeof(seccionActual->titSeccion) - 1] = '\0';
+    }
+}
 
-    while(refs->aux->aux != NULL)
-    {
-        strcpy(refs->aux->aux->titSeccion, gtk_entry_get_text(GTK_ENTRY(refs->nomSecc)));
-        refs->aux->aux->der;
+
+extern void navegarYNombrarSeccion(GtkWidget *widget, gpointer data)
+{
+    refsApp *app = (refsApp *)data;
+    secc *seccActual;
+    seccActual = (secc *)(app->aux);
+
+    // Navegación: Supongamos que usamos botones para navegar
+    if (widget == app->botSigSecc) {
+        if (app->aux && app->aux->der) {
+            app->aux = app->aux->der;
+        }
+    } else if (widget == app->botReg) {
+        if (app->aux && app->aux->izq) {
+            app->aux = app->aux->izq;
+        }
     }
 
+    // Actualizar la interfaz con la información de la sección actual
+    if (app->aux) 
+    {
+        gtk_label_set_text(GTK_LABEL(app->seccNum), g_strdup_printf("%d", app->aux->numSeccs));
+        gtk_entry_set_text(GTK_ENTRY(app->nomSecc), seccActual->titSeccion);
+    }
+}
 
+extern void on_insert_text(GtkTextBuffer *buffer, GtkTextIter *location, gchar *text, gint len, gpointer data) 
+{
+    GtkTextIter start, end;
+    gtk_text_buffer_get_bounds(buffer, &start, &end);
+    gchar *current_text = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+
+    if (strlen(current_text) + len > MAX_CHARS) {
+        g_signal_stop_emission_by_name(buffer, "insert-text");
+    }
+
+    g_free(current_text);
+
+    // Check for line length
+    GtkTextIter line_start = *location;
+    gtk_text_iter_set_line_offset(&line_start, 0);
+    gchar *line_text = gtk_text_buffer_get_text(buffer, &line_start, location, FALSE);
+
+    if (strlen(line_text) + len > MAX_CHARS_PER_LINE) {
+        g_signal_stop_emission_by_name(buffer, "insert-text");
+    }
+
+    g_free(line_text);
+}
+
+extern void print_and_quit(GtkButton *was_clicked, gpointer user_data);
+gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointer user_data);
+
+void print_and_quit(GtkButton *was_clicked, gpointer user_data)
+{
+    g_print("Gracias por usarme\n");
+    gtk_main_quit();
     return;
 }

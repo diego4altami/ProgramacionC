@@ -8,8 +8,10 @@ void visualizarVentanaEditar(GtkWidget *botEditar, gpointer pVentana);
 void visualizarVentanaAviso(GtkWidget *botEditar, gpointer pVentana);
 void visualizarVentanaSecc(GtkWidget *botEditar, gpointer pVentana);
 void visualizarVentanaEscribir(GtkWidget *botEditar, gpointer pVentana);
+
 void crearTodo(GtkWidget *n, gpointer *pmiApp);
-void nombrarSecciones(GtkWidget *n, gpointer *pmiApp);
+void nombrarSeccion(GtkWidget *widget, gpointer *pmiApp);
+void navegarYNombrarSeccion(GtkWidget *widget, gpointer data);
 
 /*
 void print_and_quit(GtkButton *was_clicked, gpointer user_data);
@@ -19,6 +21,7 @@ void on_insert_text(GtkTextBuffer *buffer, GtkTextIter *location, gchar *text, g
 int main(int argc, char *argv[]) 
 {
     refsApp miApp;
+    char NumSecc[100];
     GtkWidget *window1, *window2, *window3, *window4, *window5, *window6;
     GtkWidget *bienvenidoLbl, *introLbl;
     GtkWidget *botEditar, *botCrear, *botSalir;
@@ -34,13 +37,13 @@ int main(int argc, char *argv[])
     GtkWidget *scrollWin, *separator;
     GtkWidget *capLbl, *hojaLbl;
     GtkWidget *hBox61, *hBox62, *hBox63, *vBox6; 
-    char numsec[10];
 
     miApp.inicio = NULL;
     miApp.fin = NULL;
     miApp.aux = NULL;
 
-    sprintf(numsec, "%d", miApp.aux->aux->numSecc);
+    sprintf(NumSecc, "%d", miApp.aux->aux->numSecc);
+
     //1. inicializar entorno
     gtk_init(&argc, &argv);
 
@@ -97,7 +100,7 @@ int main(int argc, char *argv[])
     seccLbl = gtk_label_new("Sección:");
     preguntaLbl = gtk_label_new("¿Cuál es el título de esta sección?");
     miApp.nomSecc = gtk_entry_new();
-    miApp.seccNum = gtk_label_new(numsec);
+    miApp.seccNum = gtk_label_new(NumSecc);
     miApp.botSeccReg = gtk_button_new_with_label("Regresar");
     miApp.btoSeccSig = gtk_button_new_with_label("Siguiente");
 
@@ -132,10 +135,10 @@ int main(int argc, char *argv[])
     gtk_window_set_title(GTK_WINDOW(window4), "AVISO");
     gtk_container_set_border_width(GTK_CONTAINER(window4), 100);
 
-    gtk_window_set_title(GTK_WINDOW(window5), "Nombrar secciones");
+    gtk_window_set_title(GTK_WINDOW(window5), "Sección");
     gtk_container_set_border_width(GTK_CONTAINER(window5), 100);
 
-    gtk_window_set_title(GTK_WINDOW(window6), "Escribir Ebook");
+    gtk_window_set_title(GTK_WINDOW(window6), "Sección");
     gtk_container_set_border_width(GTK_CONTAINER(window6), 100);
 
     //3. Registro de callbacks
@@ -154,12 +157,15 @@ int main(int argc, char *argv[])
 
     g_signal_connect(G_OBJECT(miApp.avBotSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSecc), window5);
     g_signal_connect(G_OBJECT(miApp.botSeccReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window4);
-    g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(nombrarSecciones), &miApp);
+    g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(nombrarSeccion), &miApp);
 
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaEscribir), window6);
     g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaEscribir), window6);
     g_signal_connect(G_OBJECT(miApp.botReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
-
+    g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(navegarYNombrarSeccion), &miApp);
+    g_signal_connect(G_OBJECT(miApp.avBotSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSecc), window5);
+    g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(nombrarSeccion), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botSeccReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window6);
 
     //4. Definiendo jerarquias
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), bienvenidoLbl);

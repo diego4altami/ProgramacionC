@@ -2,11 +2,8 @@
 
 struct elemnto 
      {
-        char titSeccion[40];
         char texto[1800];
-        int numSecc;
         int numero;
-        char titulo[40];
         struct elemnto *next;
      };
 typedef struct elemnto hoja;
