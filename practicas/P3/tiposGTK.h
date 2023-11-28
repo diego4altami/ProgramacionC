@@ -35,7 +35,7 @@ struct appGTK
     GtkWidget *titulo, *numSecc, *botRegresar, *botCrear;
     GtkWidget *avBotReg, *avBotSig;
     GtkWidget *edTitLbl, *edSeccLbl, *edPagLbl, *edBotReg, *edBotEdit;
-    GtkWidget *btoSeccSig, *botSeccReg, *nomSecc, *seccNum;
+    GtkWidget *btoSeccSig, *botSeccReg, *nomSecc, *seccNum, *botSigSeccNom;
     GtkWidget *botSigPag, *botReg, *botInsertarImg, *botGurdaryVer, *botSigSecc, *texto;
     GtkWidget *capNom, *numHoj;
 };

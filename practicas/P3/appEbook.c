@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     GtkWidget *hBox41, *vBox4;    
     GtkWidget *avisoLbl, *texto1Lbl, *texto2Lbl;
     GtkWidget *seccLbl, *preguntaLbl;
-    GtkWidget *hBox51, *hBox52, *vBox5; 
+    GtkWidget *hBox51, *hBox52, *hBox53, *vBox5; 
     GtkWidget *scrollWin, *separator;
     GtkWidget *capLbl, *hojaLbl;
     GtkWidget *hBox61, *hBox62, *hBox63, *vBox6; 
@@ -92,6 +92,7 @@ int main(int argc, char *argv[])
     window5 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     hBox51 = gtk_hbox_new(FALSE, 10);
     hBox52 = gtk_hbox_new(FALSE, 10);
+    hBox53 = gtk_hbox_new(FALSE, 10);
     vBox5 = gtk_vbox_new(FALSE, 10);
     seccLbl = gtk_label_new("Sección:");
     preguntaLbl = gtk_label_new("¿Cuál es el título de esta sección?");
@@ -99,6 +100,7 @@ int main(int argc, char *argv[])
     miApp.seccNum = gtk_label_new("1");
     miApp.botSeccReg = gtk_button_new_with_label("Regresar");
     miApp.btoSeccSig = gtk_button_new_with_label("Siguiente");
+    miApp.botSigSeccNom = gtk_button_new_with_label("Nombrar siguiente sección");
 
     window6 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     hBox61 = gtk_hbox_new(FALSE, 10);
@@ -153,7 +155,7 @@ int main(int argc, char *argv[])
 
     g_signal_connect(G_OBJECT(miApp.avBotSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSecc), window5);
     g_signal_connect(G_OBJECT(miApp.botSeccReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window4);
-    g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(nombrarSecciones), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botSigSeccNom), "clicked", G_CALLBACK(nombrarSecciones), &miApp);
 
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaEscribir), window6);
     g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaEscribir), window6);
@@ -207,9 +209,11 @@ int main(int argc, char *argv[])
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), hBox51);
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), preguntaLbl);
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), miApp.nomSecc);
-    gtk_box_pack_start_defaults(GTK_BOX(hBox52), miApp.botSeccReg);
-    gtk_box_pack_start_defaults(GTK_BOX(hBox52), miApp.btoSeccSig);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox52), miApp.botSigSeccNom);
     gtk_box_pack_start_defaults(GTK_BOX(vBox5), hBox52);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox53), miApp.botSeccReg);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox53), miApp.btoSeccSig);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox5), hBox53);
     gtk_container_add(GTK_CONTAINER(window5), vBox5);
 
     gtk_box_pack_start_defaults(GTK_BOX(hBox61), capLbl);
