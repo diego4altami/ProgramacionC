@@ -101,3 +101,24 @@ extern void nombrarSecciones(GtkWidget *n, gpointer *pmiApp)
 
     return;
 }
+
+extern void tomarTexto(GtkButton *was_clicked, gpointer *pmiApp) 
+{
+    GtkTextBuffer *buffer; 
+    GtkTextIter inicio, fin, pos; 
+    const gchar *textoEnVentana;
+    char textoFinal[1680];
+    refsApp *refs;
+    refs = (refsApp *)pmiApp;
+
+
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto));
+    gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(buffer), &inicio, &fin);
+    textoEnVentana = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(buffer), &inicio, &fin, FALSE); 
+
+    strcpy(refs->aux->aux->primPag->texto, textoEnVentana);
+   
+    printf("\n%s\n", refs->aux->aux->primPag->texto);
+
+    return; 
+}
