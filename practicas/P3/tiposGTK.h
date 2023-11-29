@@ -32,6 +32,7 @@ typedef struct repisa rep;
 struct appGTK
 {
     rep *inicio, *fin, *aux;
+    rep *libroActual;
     GtkWidget *titulo, *numSecc, *botRegresar, *botCrear;
     GtkWidget *avBotReg, *avBotSig;
     GtkWidget *edTitLbl, *edSeccLbl, *edPagLbl, *edBotReg, *edBotEdit;
