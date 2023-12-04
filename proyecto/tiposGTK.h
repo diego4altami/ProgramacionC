@@ -1,4 +1,7 @@
 #include <gtk-2.0/gtk/gtk.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct elemnto 
      {

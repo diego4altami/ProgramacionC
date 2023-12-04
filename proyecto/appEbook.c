@@ -1,3 +1,13 @@
+/*
+@file appEbook.c
+@brief  El programa es una aplicación de interfaz gráfica construida con GTK en C para la creación y edición de libros electrónicos (ebooks). 
+        A través de varias ventanas y botones, el usuario puede realizar acciones como crear un nuevo libro, editar un libro existente, nombrar secciones, 
+        escribir contenido, y guardar el libro en formatos binarios y de texto. La aplicación utiliza callbacks para manejar eventos de botones y 
+        realiza diversas funciones relacionadas con la manipulación y gestión de libros electrónicos.
+@author Alberto Parera Méndez, Diego Altamirano Tovar Y Ariadna Berenice Pedraza Rodriguez.
+@date 28/11/2023
+*/
+
 #include "tiposGTK.h"
 
 gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointer user_data);
@@ -13,6 +23,9 @@ void siguientePagina(GtkWidget *was_clicked, gpointer *pmiApp);
 
 int main(int argc, char *argv[])
 {
+  //1. inicializar entorno
+    gtk_init(&argc, &argv);
+
     refsApp miApp;
     GtkWidget *window1, *window2, *window3, *window4, *window5, *window6;
     GtkWidget *bienvenidoLbl, *introLbl;
@@ -35,9 +48,6 @@ int main(int argc, char *argv[])
     miApp.aux = NULL;
 
     miApp.libroActual = NULL;
-
-    //1. inicializar entorno
-    gtk_init(&argc, &argv);
 
     //2. crear los widgets
     window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -166,6 +176,7 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(regresarAVentanaAnterior), window6);    
 
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(guardarEnTxt), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(siguientePagina), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window6);    
 
