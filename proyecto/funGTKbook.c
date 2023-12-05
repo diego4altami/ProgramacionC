@@ -137,7 +137,7 @@ void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp)
 {
     refsApp *refs;
     refs = (refsApp *)pmiApp;
-    
+
     siguienteSec(refs->libroActual);
 
     return;
@@ -198,6 +198,7 @@ extern void tomarTexto(GtkWidget *was_clicked, gpointer *pmiApp)
     if(refs->libroActual == NULL)
     {
         printf("\nNo hay un libro actualmente en edición\n");
+        //hay que cambiar cosas aqui porque el usuario no se entera de nada
         return;
     }
 
@@ -207,16 +208,10 @@ extern void tomarTexto(GtkWidget *was_clicked, gpointer *pmiApp)
         return;
     }
 
-    paginaActual = seccionActual->primPag;
+    paginaActual = seccionActual->ultPag;
     if (paginaActual == NULL) {
         printf("\nNo hay páginas en la sección actual\n");
         return;
-    }
-
-    // Avanzar hasta la última página no nula
-    while (paginaActual->next != NULL) 
-    {
-        paginaActual = paginaActual->next;
     }
 
     buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto));
@@ -269,6 +264,7 @@ extern void guardarEnTxt(GtkWidget *was_clicked, gpointer *pmiApp)
     }
 
     guardarLibroEnTxt(refs->libroActual);
+    imprimirRepisa(*refs);
 }
 /*
 @brief La función siguientePagina se encarga de avanzar a la siguiente página en el libro actualmente en edición de la aplicación GTK. 

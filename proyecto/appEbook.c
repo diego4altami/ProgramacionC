@@ -178,9 +178,9 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(nombrarSecciones), &miApp);
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(regresarAVentanaAnterior), window6);    
 
-    g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(guardarEnTxt), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(siguientePagina), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(guardarEnTxt), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window6);    
 
     //4. Definiendo jerarquias

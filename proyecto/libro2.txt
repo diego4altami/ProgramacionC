@@ -1,0 +1,20 @@
+Título: libro2
+Sección: fin
+Número de página: 1
+Texto: inicio pag1
+
+Título: libro2
+Sección: fin
+Número de página: 2
+Texto: inicio pag2
+
+Título: libro2
+Sección: fin
+Número de página: 3
+Texto: fin pag1
+
+Título: libro2
+Sección: fin
+Número de página: 4
+Texto: fin pag2
+

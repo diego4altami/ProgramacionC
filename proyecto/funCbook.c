@@ -64,10 +64,8 @@ extern void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs)
             return;
         }
         newPag->next = NULL;
-        strcpy(newPag->titSeccion,newSecc->titSeccion);
         newPag->numSecc = newSecc->numSecc;
         strcpy(newPag->titulo, newLibro->titulo);
-        newPag->numero = 1;
 
         newSecc->primPag = newPag;
         newSecc->ultPag = newPag;
@@ -190,6 +188,7 @@ extern void modificarNomSeccion(rep *libro, char nomSecc[])
     if (seccionActual != NULL) 
     {
         strcpy(seccionActual->titSeccion, nomSecc);
+        strcpy(seccionActual->ultPag->titSeccion, seccionActual->titSeccion);
     }
 }
 
@@ -351,10 +350,10 @@ extern void guardarLibroEnTxt(rep *libro)
         paginaActual = seccionActual->primPag;
         while (paginaActual != NULL) 
         {
-            fprintf(archivo, "Título: %s\n", libro->titulo);
-            fprintf(archivo, "Sección: %s\n", seccionActual->titSeccion);
+            fprintf(archivo, "Título: %s\n", paginaActual->titulo);
+            fprintf(archivo, "Sección: %s\n", paginaActual->titSeccion);
             fprintf(archivo, "Número de página: %d\n", paginaActual->numero);
-            fprintf(archivo, "Texto: %s\n", paginaActual->texto);
+            fprintf(archivo, "Texto: %s\n\n", paginaActual->texto);
             paginaActual = paginaActual->next;
         }
         seccionActual = seccionActual->der;
