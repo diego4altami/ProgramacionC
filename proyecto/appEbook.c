@@ -20,12 +20,10 @@ void nombrarSecciones(GtkWidget *n, gpointer *pmiApp);
 void guardarEnBin(GtkWidget *was_clicked, gpointer *pmiApp);
 void guardarEnTxt(GtkWidget *was_clicked, gpointer *pmiApp);
 void siguientePagina(GtkWidget *was_clicked, gpointer *pmiApp);
+void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp);
 
 int main(int argc, char *argv[])
 {
-  //1. inicializar entorno
-    gtk_init(&argc, &argv);
-
     refsApp miApp;
     GtkWidget *window1, *window2, *window3, *window4, *window5, *window6;
     GtkWidget *bienvenidoLbl, *introLbl;
@@ -48,6 +46,9 @@ int main(int argc, char *argv[])
     miApp.aux = NULL;
 
     miApp.libroActual = NULL;
+
+    //1. inicializar entorno
+    gtk_init(&argc, &argv);
 
     //2. crear los widgets
     window1 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -170,8 +171,10 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(guardarEnTxt), &miApp);
     
 
-    g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window5);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(tomarTexto), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window5);
+    
+    g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(moverSeccion), &miApp);
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(nombrarSecciones), &miApp);
     g_signal_connect(G_OBJECT(miApp.btoSeccSig), "clicked", G_CALLBACK(regresarAVentanaAnterior), window6);    
 

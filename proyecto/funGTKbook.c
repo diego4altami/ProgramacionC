@@ -137,7 +137,7 @@ void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp)
 {
     refsApp *refs;
     refs = (refsApp *)pmiApp;
-
+    
     siguienteSec(refs->libroActual);
 
     return;
@@ -201,7 +201,7 @@ extern void tomarTexto(GtkWidget *was_clicked, gpointer *pmiApp)
         return;
     }
 
-    seccionActual = refs->libroActual->inicio;
+    seccionActual = refs->libroActual->aux;
     if (seccionActual == NULL) {
         printf("\nNo hay secciones en el libro actual\n");
         return;
