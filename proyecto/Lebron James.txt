@@ -1,0 +1,38 @@
+Título: Lebron James
+Sección: Cleveland
+Número de página: 1
+Texto: Esta es la primera sección y la parte donde se va a hablar de cleveland
+
+Título: Lebron James
+Sección: Cleveland
+Número de página: 2
+Texto: En esta parte normalmente uno hablaría de lo que ganón con cleveland
+
+Título: Lebron James
+Sección: Cleveland
+Número de página: 3
+Texto: Les dio su primer campeonato en 52 años de existencia
+
+Título: Lebron James
+Sección: Miami heat
+Número de página: 1
+Texto: Lebron unió fuerzas en Miami junto con dwayne wade y chris bosh
+
+Título: Lebron James
+Sección: Miami heat
+Número de página: 2
+Texto: Lo que parecia una distanía logró tan solo 2 campeonates en 4 apariciones en las finales
+
+Título: Lebron James
+Sección: Lakers
+Número de página: 1
+Texto: Lebron llegó a los Lakers en lo que parecía el ocaso de su carrera
+
+Título: Lebron James
+Sección: Lakers
+Número de página: 2
+Texto: Logró ganar un campeonato poniendo en empate el record de más títulos 
+ganados por un equipo junto con los boston celtics.
+
+Lebron tambińe supero el record de puntaje en esta época
+

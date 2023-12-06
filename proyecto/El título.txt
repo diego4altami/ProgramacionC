@@ -10,36 +10,21 @@ Texto: 1 2
 
 Título: El título
 Sección: medio
-Número de página: 3
+Número de página: 1
 Texto: 2 1
 
 Título: El título
 Sección: medio
-Número de página: 4
+Número de página: 2
 Texto: 2 2
 
 Título: El título
 Sección: fin
-Número de página: 5
+Número de página: 1
 Texto: 3 1
 
 Título: El título
 Sección: fin
-Número de página: 6
+Número de página: 2
 Texto: 3 2
-
-Título: El título
-Sección: fin
-Número de página: 7
-Texto: 3 3
-
-Título: El título
-Sección: Titulo por defecto
-Número de página: 1
-Texto: Texto por defecto
-
-Título: El título
-Sección: Titulo por defecto
-Número de página: 1
-Texto: Texto por defecto
 

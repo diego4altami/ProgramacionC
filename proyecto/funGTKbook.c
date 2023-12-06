@@ -1,7 +1,7 @@
 #include "tiposGTK.h"
 
 void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs);
-void imprimirRepisa(refsApp refs);
+void imprimirLibro(refsApp refs);
 void modificarNomSeccion(rep *libro, char nomSecc[]);
 void guardarLibroEnBin(rep *libro);
 void guardarLibroEnTxt(rep *libro);
@@ -67,7 +67,7 @@ extern void nombrarSecciones(GtkWidget *n, gpointer *pmiApp)
     modificarNomSeccion(refs->libroActual, newNomSecc);
 
     return;
-}
+} 
 
 void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp)
 {
@@ -154,4 +154,14 @@ extern void guardarEnTxt(GtkWidget *was_clicked, gpointer *pmiApp)
 
     guardarLibroEnTxt(refs->libroActual);
     //imprimirRepisa(*refs);
+}
+
+extern void revisar(GtkWidget *was_clicked, gpointer *pmiApp)
+{
+    refsApp *refs;
+    refs = (refsApp *)pmiApp;
+
+    imprimirLibro(*refs);
+
+    return;
 }

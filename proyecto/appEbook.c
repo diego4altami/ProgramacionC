@@ -1,13 +1,3 @@
-/*
-@file appEbook.c
-@brief  El programa es una aplicación de interfaz gráfica construida con GTK en C para la creación y edición de libros electrónicos (ebooks). 
-        A través de varias ventanas y botones, el usuario puede realizar acciones como crear un nuevo libro, editar un libro existente, nombrar secciones, 
-        escribir contenido, y guardar el libro en formatos binarios y de texto. La aplicación utiliza callbacks para manejar eventos de botones y 
-        realiza diversas funciones relacionadas con la manipulación y gestión de libros electrónicos.
-@author Alberto Parera Méndez, Diego Altamirano Tovar Y Ariadna Berenice Pedraza Rodriguez.
-@date 28/11/2023
-*/
-
 #include "tiposGTK.h"
 
 gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointer user_data);
@@ -21,6 +11,7 @@ void guardarEnBin(GtkWidget *was_clicked, gpointer *pmiApp);
 void guardarEnTxt(GtkWidget *was_clicked, gpointer *pmiApp);
 void siguientePagina(GtkWidget *was_clicked, gpointer *pmiApp);
 void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp);
+void revisar(GtkWidget *was_clicked, gpointer *pmiApp);
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +37,7 @@ int main(int argc, char *argv[])
     miApp.aux = NULL;
 
     miApp.libroActual = NULL;
+
 
     //1. inicializar entorno
     gtk_init(&argc, &argv);
@@ -172,13 +164,16 @@ int main(int argc, char *argv[])
 
     //callbacks sexta ventana
     g_signal_connect(G_OBJECT(miApp.botReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
+    g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(revisar), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(siguientePagina), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window6);    
+    g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(revisar), &miApp);    
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(guardarEnBin), &miApp);
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(guardarEnTxt), &miApp);
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window1);    
+    g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(revisar), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(moverSeccion), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window5);
