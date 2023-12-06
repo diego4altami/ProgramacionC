@@ -264,7 +264,7 @@ extern void guardarEnTxt(GtkWidget *was_clicked, gpointer *pmiApp)
     }
 
     guardarLibroEnTxt(refs->libroActual);
-    imprimirRepisa(*refs);
+    //imprimirRepisa(*refs);
 }
 /*
 @brief La función siguientePagina se encarga de avanzar a la siguiente página en el libro actualmente en edición de la aplicación GTK. 

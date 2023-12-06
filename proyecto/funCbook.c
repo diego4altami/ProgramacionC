@@ -19,13 +19,19 @@
 
 extern void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs)
 {
+  secc *newSecc;
+  int cont;
+  rep *newLibro;
+  hoja *newPag;
+  
     if (numeroSeccion <= 0) 
     {
         printf("Número de secciones debe ser mayor a 0.\n");
+	//el usuario aqui no se entero de nada
         return;
     }
 
-    rep *newLibro = (rep *)malloc(sizeof(rep));
+    newLibro = (rep *)malloc(sizeof(rep));
     if (newLibro == NULL)
     {
         printf("\nNo hay memoria suficiente para el libro\n");
@@ -41,23 +47,24 @@ extern void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs)
     strcpy(newLibro->titulo, tituloLibro);
     newLibro->numSeccs = numeroSeccion;
 
-    for (int cont = 1; cont <= numeroSeccion; cont++) 
+    for (cont = 1; cont <= numeroSeccion; cont++) 
     {
-        secc *newSecc = (secc *)malloc(sizeof(secc));
+        newSecc = (secc *)malloc(sizeof(secc));
+	
         if (newSecc == NULL) {
             printf("\nNo hay memoria suficiente para la sección\n");
             return;
         }
 
-        // Inicialización de la estructura secc
-        newSecc->izq = NULL;
+        newSecc->izq = NULL;      
         newSecc->der = NULL;
         newSecc->primPag = NULL;
         newSecc->ultPag = NULL;
         newSecc->numSecc = cont;
+        strcpy(newSecc->titSeccion, "Titulo por defecto"); // Añadir un título por defecto
 
-        // Crear y inicializar la primera página
-        hoja *newPag = (hoja *)malloc(sizeof(hoja));
+        // Crear e inicializar la primera página
+        newPag = (hoja *)malloc(sizeof(hoja));
         if (newPag == NULL) 
         {
             printf("\nNo hay memoria suficiente para la página\n");
@@ -66,6 +73,9 @@ extern void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs)
         newPag->next = NULL;
         newPag->numSecc = newSecc->numSecc;
         strcpy(newPag->titulo, newLibro->titulo);
+        strcpy(newPag->titSeccion, newSecc->titSeccion); // Copiar el título de la sección
+        strcpy(newPag->texto, "Texto por defecto"); // Añadir un texto por defecto
+        newPag->numero = 1; // Establecer el número de la página
 
         newSecc->primPag = newPag;
         newSecc->ultPag = newPag;
@@ -99,8 +109,8 @@ extern void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs)
         refs->inicio->izq = newLibro;
         refs->fin = newLibro;
     }
-    refs->aux=refs->inicio;
-    refs->aux->aux=refs->inicio->inicio;
+    refs->aux = newLibro;
+    refs->aux->aux = newSecc;
     // Asignar el nuevo libro al puntero libroActual
     refs->libroActual = newLibro;
 }
