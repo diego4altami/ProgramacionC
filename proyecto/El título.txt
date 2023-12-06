@@ -1,0 +1,45 @@
+Título: El título
+Sección: inicio
+Número de página: 1
+Texto: 1 1
+
+Título: El título
+Sección: inicio
+Número de página: 2
+Texto: 1 2
+
+Título: El título
+Sección: medio
+Número de página: 3
+Texto: 2 1
+
+Título: El título
+Sección: medio
+Número de página: 4
+Texto: 2 2
+
+Título: El título
+Sección: fin
+Número de página: 5
+Texto: 3 1
+
+Título: El título
+Sección: fin
+Número de página: 6
+Texto: 3 2
+
+Título: El título
+Sección: fin
+Número de página: 7
+Texto: 3 3
+
+Título: El título
+Sección: Titulo por defecto
+Número de página: 1
+Texto: Texto por defecto
+
+Título: El título
+Sección: Titulo por defecto
+Número de página: 1
+Texto: Texto por defecto
+
