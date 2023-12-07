@@ -4,6 +4,15 @@
 #include <string.h>
 #include <dirent.h>
 
+struct elemento
+{
+    char titulo[40];
+    char titSeccion[40];
+    int numero;
+    char texto[1800];
+};
+typedef struct elemento tipohoja;
+
 struct elemnto 
 {
   char titulo[40];
@@ -42,7 +51,7 @@ struct appGTK
   GtkWidget *btoSeccSig, *botSeccReg, *nomSecc, *seccNum, *botSigSeccNom;
   GtkWidget *botSigPag, *botReg, *botInsertarImg, *botGurdaryVer, *botSigSecc, *texto;
   GtkWidget *capNom, *numHoj;
-  GtkWidget *botMarc, *botsalyGuar, *botAnex, *botDer, *botIzq;
-  GtkWidget *Anexar, *lblModif;
+  GtkWidget *texto2;
+  GtkWidget *editBotreg, *boteditsave;
 };
 typedef struct appGTK refsApp;

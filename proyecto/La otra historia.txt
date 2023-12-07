@@ -1,0 +1,25 @@
+Título: La otra historia
+Sección: la primera sección
+Número de página: 1
+Texto: esta es la primera página de la primera sección
+
+Título: La otra historia
+Sección: la primera sección
+Número de página: 2
+Texto: esta es la segunda página de la primera sección
+
+Título: La otra historia
+Sección: medio
+Número de página: 1
+Texto: esta es la segunda página de la primera sección
+
+Título: La otra historia
+Sección: medio
+Número de página: 2
+Texto: esta es la segunda página de la primera sección
+
+Título: La otra historia
+Sección: Titulo por defecto
+Número de página: 1
+Texto: Texto por defecto
+

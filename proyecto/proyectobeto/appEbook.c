@@ -14,6 +14,7 @@ void closeTheApp(GtkWidget *botSalir, gpointer data);
 void regresarAVentanaAnterior(GtkWidget *botRegresar, gpointer pVentana);
 void visualizarVentanaSiguiente(GtkWidget *botCrear, gpointer pVentana);
 void tomarTexto(GtkButton *was_clicked, gpointer *pmiApp);
+void tomarTexto2(GtkButton *was_clicked, gpointer *pmiApp);
 void crearTodo(GtkWidget *n, gpointer *pmiApp);
 void nombrarSecciones(GtkWidget *n, gpointer *pmiApp);
 void guardarEnBin(GtkWidget *was_clicked, gpointer *pmiApp);
@@ -23,11 +24,13 @@ void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp);
 void revisar(GtkWidget *was_clicked, gpointer *pmiApp);
 void cargarTodosLosbinarios(refsApp *refs);
 void imprimirLibro(refsApp refs);
+void tocoYmeMuevo(GtkWidget *was_clicked, gpointer *pmiApp);
+void cargarTexto(GtkWidget *widget, gpointer *pmiApp);
 
 int main(int argc, char *argv[])
 {
     refsApp miApp;
-    GtkWidget *window1, *window2, *window3, *window4, *window5, *window6;
+    GtkWidget *window1, *window2, *window3, *window4, *window5, *window6, *window7;
     GtkWidget *bienvenidoLbl, *introLbl;
     GtkWidget *botEditar, *botCrear, *botSalir;
     GtkWidget *hBox1, *vBox1;    
@@ -42,6 +45,8 @@ int main(int argc, char *argv[])
     GtkWidget *scrollWin, *separator;
     GtkWidget *capLbl, *hojaLbl;
     GtkWidget *hBox61, *hBox62, *hBox63, *vBox6; 
+    GtkWidget *vBox7, *hBox7, *editLbl;
+    GtkWidget *scrollWin2, *separator2;
 
     miApp.inicio = NULL;
     miApp.fin = NULL;
@@ -84,7 +89,7 @@ int main(int argc, char *argv[])
     hBox34 = gtk_hbox_new(FALSE, 10);
     vBox3 = gtk_vbox_new(FALSE, 10);
     titLbl2 = gtk_label_new("Título de libro:");
-    numSeccLbl2 = gtk_label_new("Número de sección:");
+    numSeccLbl2 = gtk_label_new("Título de sección:");
     pagLbl = gtk_label_new("Número de página:");
     miApp.edTitLbl = gtk_entry_new();
     miApp.edSeccLbl = gtk_entry_new();
@@ -131,6 +136,17 @@ int main(int argc, char *argv[])
     miApp.botSigSecc = gtk_button_new_with_label("Siguiente sección");
     miApp.botGurdaryVer = gtk_button_new_with_label("Guardar y ver");
 
+    window7 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    vBox7 = gtk_vbox_new(FALSE, 10);
+    hBox7 = gtk_hbox_new(FALSE, 10);
+    editLbl =gtk_label_new("Edición de página");
+    miApp.texto2 = gtk_text_view_new();
+    gtk_widget_set_size_request(miApp.texto2, 550, 425);
+    scrollWin2 = gtk_scrolled_window_new(NULL, NULL);
+    separator2 = gtk_hseparator_new();
+    miApp.boteditsave=gtk_button_new_with_label("Guardar cambios");
+    miApp.editBotreg=gtk_button_new_with_label("Regresar");
+
     gtk_window_set_title(GTK_WINDOW(window1), "app Ebook");
     gtk_container_set_border_width(GTK_CONTAINER(window1), 100);
 
@@ -149,6 +165,9 @@ int main(int argc, char *argv[])
     gtk_window_set_title(GTK_WINDOW(window6), "Escribir Ebook");
     gtk_container_set_border_width(GTK_CONTAINER(window6), 100);
 
+    gtk_window_set_title(GTK_WINDOW(window7), "Editar página");
+    gtk_container_set_border_width(GTK_CONTAINER(window7), 100);
+
     //3. Registro de callbacks
 
     //callbacks primera ventana
@@ -164,7 +183,9 @@ int main(int argc, char *argv[])
 
     //callbacks tercera ventana
     g_signal_connect(G_OBJECT(miApp.edBotReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
-    g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window6);
+    g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(tocoYmeMuevo), &miApp);
+    //g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(cargarTexto), &miApp);
+    g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window7);
 
     //callbacks cuarta ventana
     g_signal_connect(G_OBJECT(miApp.avBotReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window2);
@@ -190,6 +211,13 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(moverSeccion), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window5);
+
+    //callbacks septima ventana
+    g_signal_connect(G_OBJECT(miApp.editBotreg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window3);
+    g_signal_connect(G_OBJECT(miApp.boteditsave), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window1);
+    g_signal_connect(G_OBJECT(miApp.boteditsave), "clicked", GTK_SIGNAL_FUNC(tomarTexto2), &miApp);
+    g_signal_connect(G_OBJECT(miApp.boteditsave), "clicked", GTK_SIGNAL_FUNC(guardarEnBin), &miApp);
+    g_signal_connect(G_OBJECT(miApp.boteditsave), "clicked", GTK_SIGNAL_FUNC(guardarEnTxt), &miApp);
 
     //4. Definiendo jerarquias
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), bienvenidoLbl);
@@ -257,6 +285,15 @@ int main(int argc, char *argv[])
     gtk_box_pack_start_defaults(GTK_BOX(vBox6), hBox62);
     gtk_box_pack_start_defaults(GTK_BOX(vBox6), miApp.botGurdaryVer);
     gtk_container_add(GTK_CONTAINER(window6), vBox6);
+
+    gtk_box_pack_start_defaults(GTK_BOX(vBox7), editLbl);
+    gtk_container_add(GTK_CONTAINER(scrollWin2), miApp.texto2);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox7), scrollWin2);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox7), separator2);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox7), miApp.editBotreg);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox7), miApp.boteditsave);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox7), hBox7);
+    gtk_container_add(GTK_CONTAINER(window7), vBox7);
 
     //5. Mostrar los widgets
     gtk_widget_show_all(window1);

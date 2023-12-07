@@ -5,6 +5,7 @@
 @author Alberto Parera Méndez, Diego Altamirano Tovar Y Ariadna Berenice Pedraza Rodriguez.
 @date 28/11/2023
 */
+
 #include "tiposGTK.h"
 
 /*
@@ -454,9 +455,9 @@ extern void cargarTodosLosbinarios(refsApp *refs) {
             strcpy(newLibro->titulo, dir->d_name); // Usando el nombre del archivo como título del libro
 
             secc *ultimaSeccion = NULL;
-            hoja tempHoja;
+            tipohoja tempHoja;
 
-            while(fread(&tempHoja, sizeof(hoja), 1, file) == 1) {
+            while(fread(&tempHoja, sizeof(tipohoja), 1, file) == 1) {
                 if (ultimaSeccion == NULL || strcmp(ultimaSeccion->titSeccion, tempHoja.titSeccion) != 0) {
                     // Crear una nueva sección
                     secc *nuevaSeccion = (secc *)malloc(sizeof(secc));
@@ -487,7 +488,10 @@ extern void cargarTodosLosbinarios(refsApp *refs) {
                     // Manejar error de memoria
                     break;
                 }
-                *nuevaPagina = tempHoja; // Copiar la información
+                strcpy(nuevaPagina->titulo, tempHoja.titulo); // Copiar la información
+                strcpy(nuevaPagina->titSeccion, tempHoja.titSeccion); // Copiar la información
+                nuevaPagina->numero = tempHoja.numero; // Copiar la información
+                strcpy(nuevaPagina->texto, tempHoja.texto); // Copiar la información
                 nuevaPagina->next = NULL;
 
                 if (ultimaSeccion->primPag == NULL) {
@@ -516,4 +520,67 @@ extern void cargarTodosLosbinarios(refsApp *refs) {
         }
     }
     closedir(d); // Cierra el directorio
+}
+
+extern void buscandoAnemo(char tit[], char sec[], int pagNum, refsApp *refs)
+{       
+    refs->aux = refs->inicio;
+    printf("prueba1");
+
+    
+    if(refs->aux == NULL)
+    {
+        printf("\nNO NEMO\n.");
+    }
+    else
+    {
+        do
+        {
+            if(strcmp(tit, refs->aux->titulo) == 0)
+            {
+                refs->libroActual = refs->aux;
+                refs->libroActual->aux = refs->libroActual->inicio; 
+                if(refs->libroActual->aux == NULL)
+                {
+                    printf("\nNO DORY\n.");
+                }
+                else
+                {
+                    while(refs->libroActual->aux != NULL)
+                    {
+                        if (strcmp(sec, refs->libroActual->aux->titSeccion) == 0)
+                        {
+                            while(refs->libroActual->aux->primPag != NULL)
+                            {
+                                if(refs->libroActual->aux->primPag->numero == pagNum)
+                                {
+                                    printf("Se ha encontrado el libro, la sección y la página\n");
+                                    printf("Nombre de la sección que se encontró: %s", refs->libroActual->aux->titSeccion);
+                                    return;
+                                }
+                                else
+                                {
+                                    refs->libroActual->aux->primPag = refs->libroActual->aux->primPag->next;
+                                }
+                                printf("prueba2");
+
+                            }
+                        }
+                        else
+                        {
+                            refs->libroActual->aux = refs->libroActual->aux->der;
+                        }
+                        printf("prueba3"); 
+                    }
+                }
+            }
+            else
+            {
+                refs->aux = refs->aux->der;
+            }
+            printf("prueba4"); 
+        }while(refs->aux != refs->inicio);
+    }
+
+    return;
 }

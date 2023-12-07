@@ -15,6 +15,8 @@ void guardarLibroEnTxt(rep *libro);
 void moverPagina(rep *libro);
 void siguienteSec(rep *libro);
 void imprimirLibro(refsApp refs);
+void buscandoAnemo(char tit[], char sec[], int pagNum, refsApp *refs);
+
 
 /*
 @brief la función se encarga de cerrar la aplicación correctamente cuando el usuario intenta cerrar la ventana principal.
@@ -98,8 +100,10 @@ extern void crearTodo(GtkWidget *n, gpointer *pmiApp)
     sscanf(gtk_entry_get_text(GTK_ENTRY(refs->numSecc)), "%d", &numeroSeccion);
 
     instertarTodo(tituloLibro, numeroSeccion, refs);
+    gtk_entry_set_text(GTK_ENTRY(refs->titulo), "");
+    gtk_entry_set_text(GTK_ENTRY(refs->numSecc), "");
 
-    imprimirRepisa(*refs);
+    //imprimirRepisa(*refs);
 
     return;
 }
@@ -123,8 +127,11 @@ extern void nombrarSecciones(GtkWidget *n, gpointer *pmiApp)
 
     modificarNomSeccion(refs->libroActual, newNomSecc);
 
+    gtk_entry_set_text(GTK_ENTRY(refs->nomSecc), "");
+
+
     return;
-}
+} 
 
 /*
 @brief la función se encarga de obtener el nombre de una sección de la interfaz gráfica y luego modificar esa sección en la estructura del libro actual de la aplicación.
@@ -199,25 +206,20 @@ extern void tomarTexto(GtkWidget *was_clicked, gpointer *pmiApp)
     if(refs->libroActual == NULL)
     {
         printf("\nNo hay un libro actualmente en edición\n");
+        //hay que cambiar cosas aqui porque el usuario no se entera de nada
         return;
     }
 
-    seccionActual = refs->libroActual->inicio;
+    seccionActual = refs->libroActual->aux;
     if (seccionActual == NULL) {
         printf("\nNo hay secciones en el libro actual\n");
         return;
     }
 
-    paginaActual = seccionActual->primPag;
+    paginaActual = seccionActual->ultPag;
     if (paginaActual == NULL) {
         printf("\nNo hay páginas en la sección actual\n");
         return;
-    }
-
-    // Avanzar hasta la última página no nula
-    while (paginaActual->next != NULL) 
-    {
-        paginaActual = paginaActual->next;
     }
 
     buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto));
@@ -226,6 +228,8 @@ extern void tomarTexto(GtkWidget *was_clicked, gpointer *pmiApp)
 
     strncpy(paginaActual->texto, textoEnVentana, sizeof(paginaActual->texto) - 1);
     paginaActual->texto[sizeof(paginaActual->texto) - 1] = '\0';
+
+    gtk_text_buffer_set_text(buffer, "", -1);
 }
 
 /*
@@ -271,6 +275,7 @@ extern void guardarEnTxt(GtkWidget *was_clicked, gpointer *pmiApp)
 
     guardarLibroEnTxt(refs->libroActual);
 }
+
 /*
 @brief La función siguientePagina se encarga de avanzar a la siguiente página en el libro actualmente en edición de la aplicación GTK. 
 @author Alberto Parera Méndez, Diego Altamirano Tovar Y Ariadna Berenice Pedraza Rodriguez.
@@ -297,4 +302,81 @@ extern void revisar(GtkWidget *was_clicked, gpointer *pmiApp)
     imprimirLibro(*refs);
 
     return;
+}
+
+extern void tocoYmeMuevo(GtkWidget *was_clicked, gpointer *pmiApp)
+{
+    refsApp *refs;
+    char buscTit[40];
+    char buscNomSecc[40];
+    int buscPagNum;
+    
+    refs = (refsApp *)pmiApp;
+
+    strcpy(buscTit, gtk_entry_get_text(GTK_ENTRY(refs->edTitLbl)));
+    strcpy(buscNomSecc, gtk_entry_get_text(GTK_ENTRY(refs->edSeccLbl)));  
+    sscanf(gtk_entry_get_text(GTK_ENTRY(refs->edPagLbl)), "%d", &buscPagNum);      
+
+    printf("prueba");
+
+    buscandoAnemo(buscTit, buscNomSecc, buscPagNum, refs);
+
+    return;
+}
+
+extern void tomarTexto2(GtkWidget *was_clicked, gpointer *pmiApp)
+{
+    refsApp *refs;
+    GtkTextBuffer *buffer; 
+    GtkTextIter inicio, fin; 
+    const gchar *textoEnVentana;
+    secc *seccionActual;
+    hoja *paginaActual;
+
+    refs = (refsApp *)pmiApp;
+
+    if(refs->libroActual == NULL)
+    {
+        printf("\nNo hay un libro actualmente en edición\n");
+        //hay que cambiar cosas aqui porque el usuario no se entera de nada
+        return;
+    }
+
+    seccionActual = refs->libroActual->aux;
+    if (seccionActual == NULL) {
+        printf("\nNo hay secciones en el libro actual\n");
+        return;
+    }
+
+    paginaActual = seccionActual->primPag;
+    if (paginaActual == NULL) {
+        printf("\nNo hay páginas en la sección actual\n");
+        return;
+    }
+
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto2));
+    gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(buffer), &inicio, &fin);
+    textoEnVentana = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(buffer), &inicio, &fin, FALSE); 
+
+    strncpy(paginaActual->texto, textoEnVentana, sizeof(paginaActual->texto) - 1);
+    paginaActual->texto[sizeof(paginaActual->texto) - 1] = '\0';
+
+    gtk_text_buffer_set_text(buffer, "", -1);
+}
+
+void cargarTexto(refsApp *refs) {
+    GtkTextBuffer *buffer;
+
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto2));
+    gtk_text_buffer_set_text(buffer, refs->libroActual->aux->primPag->texto, -1);
+}
+
+void cargar_y_mostrar(GtkWidget *widget, gpointer *pmiApp) {
+
+    refsApp *refs;
+    refs = (refsApp *)pmiApp;
+
+    printf("Texto a cargar: %s", refs->libroActual->aux->primPag->texto);
+
+    cargarTexto(refs);
 }
