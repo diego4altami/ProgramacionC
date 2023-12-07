@@ -18,8 +18,8 @@ struct elemnto
   char titulo[40];
   char titSeccion[40];
   int numero;
-  char texto[1800];
-  struct elemnto *next; //chance quitar esto para la lectura correcta del binario
+  char texto[1800];s
+  struct elemnto *next; 
 };
 typedef struct elemnto hoja;
 

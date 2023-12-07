@@ -584,3 +584,17 @@ extern void buscandoAnemo(char tit[], char sec[], int pagNum, refsApp *refs)
 
     return;
 }
+
+extern void moverIzquierda(refsApp *refs)
+{
+    refs->inicioLeer =refs->inicioLeer->izq;
+
+    return;
+}
+
+extern void moverDerecha(refsApp *refs)
+{
+    refs->inicioLeer = refs->inicioLeer->der;
+
+    return;
+}

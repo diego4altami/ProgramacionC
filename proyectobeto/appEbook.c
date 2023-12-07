@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
     //callbacks tercera ventana
     g_signal_connect(G_OBJECT(miApp.edBotReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
     g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(tocoYmeMuevo), &miApp);
-    //g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(cargarTexto), &miApp);
+    g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(cargarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.edBotEdit), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window7);
 
     //callbacks cuarta ventana

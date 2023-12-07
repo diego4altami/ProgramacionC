@@ -364,19 +364,16 @@ extern void tomarTexto2(GtkWidget *was_clicked, gpointer *pmiApp)
     gtk_text_buffer_set_text(buffer, "", -1);
 }
 
-void cargarTexto(refsApp *refs) {
-    GtkTextBuffer *buffer;
-
-    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto2));
-    gtk_text_buffer_set_text(buffer, refs->libroActual->aux->primPag->texto, -1);
-}
-
-void cargar_y_mostrar(GtkWidget *widget, gpointer *pmiApp) {
+void cargarTexto(GtkWidget *widget, gpointer *pmiApp) {
 
     refsApp *refs;
     refs = (refsApp *)pmiApp;
+    char textoPrueba[8] = "hola";
 
+    GtkTextBuffer *buffer;
+    system("clear");
     printf("Texto a cargar: %s", refs->libroActual->aux->primPag->texto);
 
-    cargarTexto(refs);
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto2));
+    gtk_text_buffer_set_text(buffer, refs->libroActual->aux->primPag->texto, -1);
 }

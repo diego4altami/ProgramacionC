@@ -26,7 +26,7 @@ Texto: Lo que parecia una distanía logró tan solo 2 campeonates en 4 aparicion
 Título: Lebron James
 Sección: Lakers
 Número de página: 1
-Texto: Estoy editando la primera página
+Texto: Lebron llegó a los Lakers en lo que parecía el ocaso de su carrera editado
 
 Título: Lebron James
 Sección: Lakers
