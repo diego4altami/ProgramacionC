@@ -54,7 +54,6 @@ extern void instertarTodo(char tituloLibro[], int numeroSeccion, refsApp *refs)
         }
 
         newPag->next = NULL;
-        newPag->numSecc = newSecc->numSecc;
         strcpy(newPag->titulo, newLibro->titulo);
         strcpy(newPag->titSeccion, newSecc->titSeccion); // Copiar el título de la sección
         strcpy(newPag->texto, "Texto por defecto"); // Añadir un texto por defecto
@@ -103,8 +102,7 @@ void imprimirPags(secc refs)
     while(refs.primPag != NULL)
     {
         printf("\nTítulo del libro: %s",refs.primPag->titulo);
-        printf("\tTítulo de la sección: %s",refs.primPag->titSeccion);
-        printf("\tNúmero se sección: %i",refs.primPag->numSecc);
+        printf("\tTítulo de la sección: %s",refs.primPag->titSeccion);  
         printf("\tNúmero de página %i",refs.primPag->numero);
         printf("\tEl texto guardado: %s\n\n\n",refs.primPag->texto);
         refs.primPag = refs.primPag->next;
@@ -217,16 +215,7 @@ extern void moverPagina(rep *libro)
     nuevaPagina->numero = seccionActual->ultPag->numero + 1;
     strcpy(nuevaPagina->titulo, libro->titulo);
     strcpy(nuevaPagina->titSeccion, seccionActual->titSeccion);
-    nuevaPagina->numSecc = seccionActual->numSecc;
     memset(nuevaPagina->texto, 0, sizeof(nuevaPagina->texto)); // Inicializar el texto con una cadena vacía
-
-    // printf("Datos de la página antes de moverla\n");
-    // printf("Número de pagina: %i\n", seccionActual->ultPag->numero);
-    // printf("Título del libro de la página: %s\n", seccionActual->ultPag->titulo);
-    // printf("Título de la sección de la página: %s\n", seccionActual->ultPag->titSeccion);
-    // printf("Número de sección: %i\n", seccionActual->ultPag->numSecc);
-    // printf("texto de la página: %s\n\n", seccionActual->ultPag->texto);
-
 
     // Agregar la nueva página al final de la lista de páginas
     if (seccionActual->ultPag == NULL) 
@@ -238,12 +227,6 @@ extern void moverPagina(rep *libro)
         seccionActual->ultPag->next = nuevaPagina;
         seccionActual->ultPag = nuevaPagina;
     }
-    // printf("Datos de la página después de moverla\n");
-    // printf("Número de pagina: %i\n", seccionActual->ultPag->numero);
-    // printf("Título del libro de la página: %s\n", seccionActual->ultPag->titulo);
-    // printf("Título de la sección de la página: %s\n", seccionActual->ultPag->titSeccion);
-    // printf("Número de sección: %i\n", seccionActual->ultPag->numSecc);
-    // printf("texto de la página: %s\n", seccionActual->ultPag->texto);
 }
 
 extern void guardarLibroEnBin(rep *libro) 
@@ -272,8 +255,8 @@ extern void guardarLibroEnBin(rep *libro)
         paginaActual = seccionActual->primPag;
         while (paginaActual != NULL) 
         {
-            fwrite(libro->titulo, sizeof(libro->titulo), 1, archivo);
-            fwrite(seccionActual->titSeccion, sizeof(seccionActual->titSeccion), 1, archivo);
+            fwrite(paginaActual->titulo, sizeof(paginaActual->titulo), 1, archivo);
+            fwrite(paginaActual->titSeccion, sizeof(paginaActual->titSeccion), 1, archivo);
             fwrite(&(paginaActual->numero), sizeof(paginaActual->numero), 1, archivo);
             fwrite(paginaActual->texto, sizeof(paginaActual->texto), 1, archivo);
             paginaActual = paginaActual->next;

@@ -5,12 +5,11 @@
 
 struct elemnto 
      {
-        char titSeccion[40];
-        char texto[1800];
-        int numSecc;
-        int numero;
         char titulo[40];
-        struct elemnto *next;
+        char titSeccion[40];
+        int numero;
+        char texto[1800];
+        struct elemnto *next; //checar en lectura
      };
 typedef struct elemnto hoja;
 
