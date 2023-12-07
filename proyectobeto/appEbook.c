@@ -30,7 +30,7 @@ void cargarTexto(GtkWidget *widget, gpointer *pmiApp);
 int main(int argc, char *argv[])
 {
     refsApp miApp;
-    GtkWidget *window1, *window2, *window3, *window4, *window5, *window6, *window7;
+    GtkWidget *window1, *window2, *window3, *window4, *window5, *window6, *window7, *window8;
     GtkWidget *bienvenidoLbl, *introLbl;
     GtkWidget *botEditar, *botCrear, *botSalir;
     GtkWidget *hBox1, *vBox1;    
@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
     GtkWidget *hBox61, *hBox62, *hBox63, *vBox6; 
     GtkWidget *vBox7, *hBox7, *editLbl;
     GtkWidget *scrollWin2, *separator2;
+     GtkWidget *hBox81, *hBox82, *hBox83, *vBox8;
 
     miApp.inicio = NULL;
     miApp.fin = NULL;
@@ -147,6 +148,19 @@ int main(int argc, char *argv[])
     miApp.boteditsave=gtk_button_new_with_label("Guardar cambios");
     miApp.editBotreg=gtk_button_new_with_label("Regresar");
 
+    window8 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    hBox81 = gtk_hbox_new(FALSE, 10);
+    hBox82 = gtk_hbox_new(FALSE, 10);
+    hBox83 = gtk_hbox_new(FALSE, 10);
+    vBox8 = gtk_vbox_new(FALSE, 10);
+    miApp.lblModif = gtk_label_new("Modifa esto segun lo que necesite el programa");
+    miApp.Anexar = gtk_entry_new();
+    miApp.botMarc = gtk_button_new_with_label("Marcador");
+    miApp.botsalyGuar = gtk_button_new_with_label("Salir & Guardar");
+    miApp.botAnex = gtk_button_new_with_label("Anexar en índice");
+    miApp.botIzq = gtk_button_new_with_label("<-");
+    miApp.botDer = gtk_button_new_with_label("->");
+
     gtk_window_set_title(GTK_WINDOW(window1), "app Ebook");
     gtk_container_set_border_width(GTK_CONTAINER(window1), 100);
 
@@ -167,6 +181,9 @@ int main(int argc, char *argv[])
 
     gtk_window_set_title(GTK_WINDOW(window7), "Editar página");
     gtk_container_set_border_width(GTK_CONTAINER(window7), 100);
+
+    gtk_window_set_title(GTK_WINDOW(window8), "Lector de Libro");
+    gtk_container_set_border_width(GTK_CONTAINER(window8), 100);
 
     //3. Registro de callbacks
 
@@ -219,6 +236,8 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.boteditsave), "clicked", GTK_SIGNAL_FUNC(guardarEnBin), &miApp);
     g_signal_connect(G_OBJECT(miApp.boteditsave), "clicked", GTK_SIGNAL_FUNC(guardarEnTxt), &miApp);
 
+    //callbacks octava ventana
+    
     //4. Definiendo jerarquias
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), bienvenidoLbl);
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), introLbl);

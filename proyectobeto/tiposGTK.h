@@ -53,5 +53,7 @@ struct appGTK
   GtkWidget *capNom, *numHoj;
   GtkWidget *texto2;
   GtkWidget *editBotreg, *boteditsave;
+  GtkWidget *botMarc, *botsalyGuar, *botAnex, *botDer, *botIzq;
+  GtkWidget *Anexar, *lblModif;
 };
 typedef struct appGTK refsApp;
