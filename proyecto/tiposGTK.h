@@ -4,12 +4,21 @@
 #include <string.h>
 #include <dirent.h>
 
+struct arbol
+{
+   int arbNumPag;
+   char indice[100];
+   struct arbol *izq, *der;
+};
+typedef struct arbol arbolote;
+
 struct element
 {
     char titulo[40];
     char titSeccion[40];
     int numero;
     char texto[1800];
+    int marcador;
     struct element *izq, *der;
 };
 typedef struct element dubCircPag;
@@ -66,6 +75,7 @@ struct appGTK
   rep *libroActual;
   libroLeer *inicioLeer, *finLeer, *auxLeer;
   libroLeer *lectura;
+  arbolote *raiz;
   GtkWidget *titulo, *numSecc, *botRegresar, *botCrear;
   GtkWidget *avBotReg, *avBotSig;
   GtkWidget *edTitLbl, *edSeccLbl, *edPagLbl, *edBotReg, *edBotEdit;
