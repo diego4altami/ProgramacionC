@@ -24,11 +24,11 @@ void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp);
 void revisar(GtkWidget *was_clicked, gpointer *pmiApp);
 void cargarTodosLosbinarios(refsApp *refs);
 void cargarLectura(refsApp *refs);
-void imprimirLibro(refsApp refs);
 void tocoYmeMuevo(GtkWidget *was_clicked, gpointer *pmiApp);
 void cargar_y_mostrar(GtkWidget *widget, gpointer *pmiApp);
 void moverIzq(GtkWidget *btnAnterior, gpointer *pMiApp);
 void moverDer(GtkWidget *btnSiguiente, gpointer *pMiApp);
+void verpag(GtkWidget *was_cliked, gpointer *pMiApp);
 
 int main(int argc, char *argv[])
 {
@@ -66,7 +66,6 @@ int main(int argc, char *argv[])
 
     cargarTodosLosbinarios(&miApp);
     cargarLectura(&miApp);
-    imprimirLibro(miApp);
     
     //1. inicializar entorno
     gtk_init(&argc, &argv);
@@ -168,7 +167,7 @@ int main(int argc, char *argv[])
     vBox8 = gtk_vbox_new(FALSE, 10);
     miApp.titLbl = gtk_label_new("título");
     miApp.seccLbl = gtk_label_new("seccón");
-    miApp.lblTexto = gtk_label_new("La respuesta rápida es por mi hija, por mi esposa, porque tengo una familia catalana. Pero si me preguntan en serio por qué sigo acá, en Barcelona, en estas épocas horribles y aburridas, es porque estoy a cuarenta minutos en tren del mejor fútbol de la historia. \nQuiero decir: si mi esposa y mi hija decidieran irse a vivir a Argentina ahora mismo, yo me divorciaría y me quedaría acá por lo menos hasta la final de la Champions. Y es que nunca se vio algo parecido adentro de una cancha de fútbol, en ninguna época, y es muy posible que no ocurra más. Es verdad, estoy escribiendo en caliente. Redacto esto la misma semana en que Messi hizo tres para Argentina, cinco para el Barça en Champions y dos para el Barça en Liga. \nDiez goles en tres partidos de tres competiciones diferentes. La prensa catalana no habla de otra cosa. Durante un rato, la crisis económica no es el tema de inicio en los noticieros. Internet explota. Y en medio de todo esto a mí me acaba de pasar por la cabeza una teoría extraña, muy difícil de explicar. Justamente por eso intentaré escribirla, a ver si termino de darle vuelo. Todo empezó esta mañana: estoy mirando sin parar goles de Messi en Youtube, lo hago con culpa porque estoy en mitad del cierre de la revista número seis. No debería estar haciendo esto.");
+    miApp.lblTexto = gtk_label_new(miApp.auxLeer->aux->texto);
     miApp.pagLbl = gtk_label_new("página");
     miApp.entryAnexar = gtk_entry_new();
     miApp.botMarcar = gtk_button_new_with_label("Marcar");
@@ -183,7 +182,7 @@ int main(int argc, char *argv[])
     hBox92 = gtk_hbox_new(FALSE, 10);
     hBox93 = gtk_hbox_new(FALSE, 10);
     vBox9 = gtk_vbox_new(FALSE, 10);
-    miApp.labelTitulo = gtk_label_new(miApp.inicioLeer->titulo);
+    miApp.labelTitulo = gtk_label_new(miApp.auxLeer->titulo);
     miApp.btnSiguiente = gtk_button_new_with_label("->");
     miApp.btnAnterior = gtk_button_new_with_label("<-");
     miApp.btnContinuar = gtk_button_new_with_label("Continuar Lectura");
@@ -248,16 +247,13 @@ int main(int argc, char *argv[])
 
     //callbacks sexta ventana
     g_signal_connect(G_OBJECT(miApp.botReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
-    g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(revisar), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(siguientePagina), &miApp);
-    g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window6);    
-    g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(revisar), &miApp);    
+    g_signal_connect(G_OBJECT(miApp.botSigPag), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window6);        
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(guardarEnBin), &miApp);
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(guardarEnTxt), &miApp);
     g_signal_connect(G_OBJECT(miApp.botGurdaryVer), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window1);    
-    g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(revisar), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(tomarTexto), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(moverSeccion), &miApp);
     g_signal_connect(G_OBJECT(miApp.botSigSecc), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window5);
@@ -270,16 +266,16 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.boteditsave), "clicked", GTK_SIGNAL_FUNC(guardarEnTxt), &miApp);
 
     //callbacks novena ventana
-    g_signal_connect(G_OBJECT(miApp.btnContinuar), "clicked", G_CALLBACK(regresarAVentanaAnterior), window8);
-    g_signal_connect(G_OBJECT(miApp.btnEmpezar), "clicked", G_CALLBACK(regresarAVentanaAnterior), window8);
-    g_signal_connect(G_OBJECT(miApp.btnRegresar), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window1);
+    g_signal_connect(G_OBJECT(miApp.btnContinuar), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window8);
+    g_signal_connect(G_OBJECT(miApp.btnEmpezar), "clicked", G_CALLBACK(visualizarVentanaSiguiente), window8);
+    g_signal_connect(G_OBJECT(miApp.btnEmpezar), "clicked", G_CALLBACK(verpag), &miApp);
+    g_signal_connect(G_OBJECT(miApp.btnRegresar), "clicked", GTK_SIGNAL_FUNC(regresarAVentanaAnterior), window1);
     g_signal_connect(G_OBJECT(miApp.btnAnterior), "clicked", G_CALLBACK(moverIzq), &miApp);
     g_signal_connect(G_OBJECT(miApp.btnSiguiente), "clicked", G_CALLBACK(moverDer), &miApp);
 
     //callbacks octava ventana
     g_signal_connect(G_OBJECT(miApp.butReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window9);
-    g_signal_connect(G_OBJECT(miApp.butReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
-
+    
     
     //4. Definiendo jerarquias
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), bienvenidoLbl);
@@ -364,7 +360,7 @@ int main(int argc, char *argv[])
     gtk_box_pack_start_defaults(GTK_BOX(vBox8), hBox81);
     gtk_label_set_line_wrap(GTK_LABEL(miApp.lblTexto), TRUE);
     gtk_label_set_line_wrap_mode(GTK_LABEL(miApp.lblTexto), PANGO_WRAP_WORD);
-    gtk_widget_set_size_request(miApp.lblTexto, 425, 550); // Replace 200 and 100 with your desired dimensions
+    gtk_widget_set_size_request(miApp.lblTexto, 425, 480); // Replace 200 and 100 with your desired dimensions
     gtk_box_pack_start(GTK_BOX(vBox8), miApp.lblTexto, FALSE, FALSE, 0);
     gtk_box_pack_start_defaults(GTK_BOX(vBox8), miApp.pagLbl);
     gtk_box_pack_start_defaults(GTK_BOX(hBox82), miApp.botIzq);

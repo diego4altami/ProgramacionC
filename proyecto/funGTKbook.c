@@ -151,39 +151,6 @@ void moverSeccion(GtkWidget *was_clicked, gpointer *pmiApp)
 
     return;
 }
-/*
-extern void tomarTexto(GtkWidget *was_clicked, gpointer *pmiApp)
-{
-    refsApp *refs;
-    GtkTextBuffer *buffer; 
-    GtkTextIter inicio, fin; 
-    const gchar *textoEnVentana;
-    secc *seccionActual;
-    hoja *paginaActual;
-
-    refs = (refsApp *)pmiApp;
-
-    if(refs->libroActual == NULL)
-    {
-        printf("\no un un libro actualmente en edición\n");
-        return;
-    }
-
-    seccionActual = refs->libroActual->inicio;
-    paginaActual = seccionActual->primPag;
-    while (paginaActual != NULL) 
-    {
-        paginaActual = paginaActual->next;
-    }
-
-    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(refs->texto));
-    gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(buffer), &inicio, &fin);
-    textoEnVentana = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(buffer), &inicio, &fin, FALSE); 
-
-    strncpy(paginaActual->texto, textoEnVentana, sizeof(paginaActual->texto) - 1);
-    paginaActual->texto[sizeof(paginaActual->texto) - 1] = '\0';
-
-}*/
 
 /*
 @brief la función se encarga de tomar el texto introducido en un GtkTextView y guardarlo en la estructura de datos de la aplicación, específicamente en la última página de la sección actual del libro en edición.
@@ -406,5 +373,19 @@ extern void moverDer(GtkWidget *btnSiguiente, gpointer pMiApp)
 
     gtk_label_set_text(GTK_LABEL(refs->labelTitulo), refs->auxLeer->titulo);
 
+    return;
+}
+
+extern void verpag(GtkWidget *was_cliked, gpointer *pMiApp)
+{
+    refsApp *refs; 
+
+    refs = (refsApp *)pMiApp;
+
+    system("clear");
+
+    printf("\n\n El título de la página es: %s ", refs->auxLeer->aux->titulo);
+    printf("\t El número de página es: %i", refs->auxLeer->aux->numero);
+    printf("\t El texto dentro de la página es: %s \n\n", refs->auxLeer->aux->texto);
     return;
 }
