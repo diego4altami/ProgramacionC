@@ -7,6 +7,7 @@
 @author Alberto Parera Méndez, Diego Altamirano Tovar Y Ariadna Berenice Pedraza Rodriguez.
 @date 28/11/2023
 */
+
 #include "tiposGTK.h"
 
 gboolean delete_event_handler(GtkWidget *widget, GdkEvent *event, gpointer user_data);

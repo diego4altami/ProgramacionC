@@ -463,9 +463,11 @@ void anexarIndice(GtkWidget *botAnexar, gpointer *pMiApp)
 
     refs = (refsApp *)pMiApp;
 
-    strcpy(indice, gtk_entry_get_text(GTK_ENTRY(refs->titulo)));
+    strcpy(indice, gtk_entry_get_text(GTK_ENTRY(refs->entryAnexar)));
 
     refs->raiz = insetarEnArbol(indice, refs->auxLeer->aux->numero, refs->raiz);
+
+    gtk_entry_set_text(GTK_ENTRY(refs->entryAnexar), "");
 
     return;
 }
@@ -476,7 +478,7 @@ void guardarArbolTxt(GtkWidget *botsalyGuar, gpointer *pMiApp)
     FILE *fp;
     refs = (refsApp *)pMiApp;
 
-
+    
     fp = fopen("índices.txt", "w");
     if(fp == NULL)
     {
