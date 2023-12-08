@@ -797,13 +797,14 @@ extern arbolote *insetarEnArbol(char indice[], int numPag, arbolote *root)
     return aux;
 }
 
-extern void imprimirEnTxt(arbolote *aux, FILE *fp)
-{
-    if(aux != NULL)
-    {
-        imprimirEnTxt(aux->izq, fp);  
-        fprintf(fp, "%s\t %d\n", aux->indice, aux->arbNumPag);
-        imprimirEnTxt(aux->der, fp);  
-    }
-    return;
-}
+// extern void imprimirEnTxt(arbolote *aux, FILE *fp)
+// {
+//     if(aux != NULL)
+//     {
+//         printf("prueba");
+//         imprimirEnTxt(aux->izq, fp);  
+//         fprintf(fp, " %s\t %i\n", aux->indice, aux->arbNumPag);
+//         imprimirEnTxt(aux->der, fp);  
+//     }
+//     return;
+// }

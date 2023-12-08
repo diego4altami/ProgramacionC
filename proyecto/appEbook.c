@@ -331,7 +331,7 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.botDer), "clicked", G_CALLBACK(leerMoverPagDer), &miApp);
     g_signal_connect(G_OBJECT(miApp.botMarcar), "clicked", G_CALLBACK(marcarMarcadorMarcado), &miApp);
     g_signal_connect(G_OBJECT(miApp.botAnexar), "clicked", G_CALLBACK(anexarIndice), &miApp);
-    g_signal_connect(G_OBJECT(miApp.botsalyGuar), "clicked", G_CALLBACK(guardarArbolTxt), &miApp);
+    // g_signal_connect(G_OBJECT(miApp.botsalyGuar), "clicked", G_CALLBACK(guardarArbolTxt), &miApp);
 
     //4. Definiendo jerarquias
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), bienvenidoLbl);

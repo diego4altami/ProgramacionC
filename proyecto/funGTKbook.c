@@ -472,22 +472,24 @@ void anexarIndice(GtkWidget *botAnexar, gpointer *pMiApp)
     return;
 }
 
-void guardarArbolTxt(GtkWidget *botsalyGuar, gpointer *pMiApp)
-{
-    refsApp *refs; 
-    FILE *fp;
-    refs = (refsApp *)pMiApp;
-
+// void guardarArbolTxt(GtkWidget *botsalyGuar, gpointer *pMiApp)
+// {
+//     refsApp *refs; 
+//     FILE *fp;
+//     refs = (refsApp *)pMiApp;
     
-    fp = fopen("índices.txt", "w");
-    if(fp == NULL)
-    {
-        printf("Archivo no disponible\n");
-        exit(1);
-    }
-    fprintf(fp,"Índice de referencias\n");
-    imprimirEnTxt(refs->raiz, fp);
-    fclose(fp);
+//     fp = fopen("índices.txt", "w");
+//     if(fp == NULL)
+//     {
+//         printf("Archivo no disponible\n");
+//         exit(1);
+//     }
 
-    return;
-}
+//     fprintf(fp,"Índice de referencias\n");
+
+//     imprimirEnTxt(refs->raiz, fp);
+
+//     fclose(fp);
+
+//     return;
+// }
