@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     refsApp miApp;
     char leerNumPag[10];
     GtkWidget *window1, *window2, *window3, *window4;
-    GtkWidget *window5, *window6, *window7, *window8, *window9;
+    GtkWidget *window5, *window6, *window7, *window8, *window9, *window10, *window11;
     GtkWidget *bienvenidoLbl, *introLbl;
     GtkWidget *botEditar, *botCrear, *botSalir, *botLeer;
     GtkWidget *hBox1, *vBox1;    
@@ -52,7 +52,11 @@ int main(int argc, char *argv[])
     GtkWidget *hBox31, *hBox32, *hBox33, *hBox34, *vBox3;    
     GtkWidget *numSeccLbl2, *titLbl2, *pagLbl;
     GtkWidget *hBox41, *vBox4;    
+    GtkWidget *hBox101, *vBox10;    
+    GtkWidget *hBox111, *vBox11;    
     GtkWidget *avisoLbl, *texto1Lbl, *texto2Lbl;
+    GtkWidget *avisoLbl2, *texto1Lbl2, *texto2Lbl2;
+    GtkWidget *avisoLbl3, *texto1Lbl3, *texto2Lbl3;
     GtkWidget *seccLbl, *preguntaLbl;
     GtkWidget *hBox51, *hBox52, *hBox53, *vBox5; 
     GtkWidget *scrollWin, *separator;
@@ -123,10 +127,28 @@ int main(int argc, char *argv[])
     hBox41 = gtk_hbox_new(FALSE, 10);
     vBox4 = gtk_vbox_new(FALSE, 10);
     avisoLbl = gtk_label_new("AVISO");
-    texto1Lbl = gtk_label_new("insetar instrucciones 1");
-    texto2Lbl = gtk_label_new("insertar instrucciones 2");
+    texto1Lbl = gtk_label_new("Escriba con libertad y cuando guste cambiar de línea presiones Enter\nUse los botones a su gusto\nSiguiente página crea una página nueva\nSiguiente sección te pedira nombrar la siguiente sección");
+    texto2Lbl = gtk_label_new("Es importante nombrar todas las secciones antes de guardar los cambios no guardados de verán perdidos.");
     miApp.avBotReg = gtk_button_new_with_label("Regresar");
     miApp.avBotSig = gtk_button_new_with_label("Siguiente");
+
+    window10 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    hBox101 = gtk_hbox_new(FALSE, 10);
+    vBox10 = gtk_vbox_new(FALSE, 10);
+    avisoLbl2 = gtk_label_new("AVISO");
+    texto1Lbl2 = gtk_label_new("Escoja el libro de su preferencia y lealo sin restricciones \n Use los botones con libertad\n Solo se puede colocar una marca por libro\n Los nombres de los libros tendrán .bin al final ");
+    texto2Lbl2 = gtk_label_new("Debe guardar los cambios antes de salir\nDe lo contrario de borrarán");
+    miApp.avBotReg2 = gtk_button_new_with_label("Regresar");
+    miApp.avBotSig2 = gtk_button_new_with_label("Siguiente");
+
+    window11 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    hBox111 = gtk_hbox_new(FALSE, 10);
+    vBox11 = gtk_vbox_new(FALSE, 10);
+    avisoLbl3 = gtk_label_new("AVISO");
+    texto1Lbl3 = gtk_label_new("Escriba con libertad y cuando guste cambiar de línea presiones Enter\nUse los botones a su gusto\nSiguiente página crea una página nueva\nSiguiente sección te pedira nombrar la siguiente sección");
+    texto2Lbl3 = gtk_label_new("Es importante nombrar todas las secciones antes de guardar\nLos cambios no guardados de verán perdidos.");
+    miApp.avBotReg3 = gtk_button_new_with_label("Regresar");
+    miApp.avBotSig3 = gtk_button_new_with_label("Siguiente");
 
     window5 = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     hBox51 = gtk_hbox_new(FALSE, 10);
@@ -212,6 +234,12 @@ int main(int argc, char *argv[])
     gtk_window_set_title(GTK_WINDOW(window4), "AVISO");
     gtk_container_set_border_width(GTK_CONTAINER(window4), 100);
 
+    gtk_window_set_title(GTK_WINDOW(window10), "AVISO");
+    gtk_container_set_border_width(GTK_CONTAINER(window10), 100);
+
+    gtk_window_set_title(GTK_WINDOW(window11), "AVISO");
+    gtk_container_set_border_width(GTK_CONTAINER(window11), 100);
+
     gtk_window_set_title(GTK_WINDOW(window5), "Nombrar secciones");
     gtk_container_set_border_width(GTK_CONTAINER(window5), 100);
 
@@ -233,8 +261,8 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(window1), "delete_event", G_CALLBACK(delete_event_handler), NULL);
     g_signal_connect(G_OBJECT(botSalir), "clicked", GTK_SIGNAL_FUNC(closeTheApp), NULL);
     g_signal_connect(G_OBJECT(botCrear), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window2);
-    g_signal_connect(G_OBJECT(botEditar), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window3);
-    g_signal_connect(G_OBJECT(botLeer), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window9);
+    g_signal_connect(G_OBJECT(botEditar), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window10);
+    g_signal_connect(G_OBJECT(botLeer), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window11);
 
     //callbacks segunda ventana
     g_signal_connect(G_OBJECT(miApp.botRegresar), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
@@ -250,6 +278,14 @@ int main(int argc, char *argv[])
     //callbacks cuarta ventana
     g_signal_connect(G_OBJECT(miApp.avBotReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window2);
     g_signal_connect(G_OBJECT(miApp.avBotSig), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window5);
+
+    //callbacks décima ventana
+    g_signal_connect(G_OBJECT(miApp.avBotReg2), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
+    g_signal_connect(G_OBJECT(miApp.avBotSig2), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window3);
+
+    //callbacks onceava ventana
+    g_signal_connect(G_OBJECT(miApp.avBotReg3), "clicked", G_CALLBACK(regresarAVentanaAnterior), window1);
+    g_signal_connect(G_OBJECT(miApp.avBotSig3), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window9);
 
     //callbacks quinta ventana 
     g_signal_connect(G_OBJECT(miApp.botSeccReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window4);
@@ -286,15 +322,15 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(miApp.btnRegresar), "clicked", GTK_SIGNAL_FUNC(visualizarVentanaSiguiente), window1);
     g_signal_connect(G_OBJECT(miApp.btnAnterior), "clicked", G_CALLBACK(moverIzq), &miApp);
     g_signal_connect(G_OBJECT(miApp.btnSiguiente), "clicked", G_CALLBACK(moverDer), &miApp);
-    g_signal_connect(G_OBJECT(miApp.botMarcar), "clicked", G_CALLBACK(marcarMarcadorMarcado), &miApp);
     g_signal_connect(G_OBJECT(miApp.btnContinuar), "clicked", G_CALLBACK(continuarLeyendo), &miApp);
-    g_signal_connect(G_OBJECT(miApp.botAnexar), "clicked", G_CALLBACK(anexarIndice), &miApp);
-    g_signal_connect(G_OBJECT(miApp.botsalyGuar), "clicked", G_CALLBACK(guardarArbolTxt), &miApp);
 
     //callbacks octava ventana
     g_signal_connect(G_OBJECT(miApp.butReg), "clicked", G_CALLBACK(regresarAVentanaAnterior), window9);
     g_signal_connect(G_OBJECT(miApp.botIzq), "clicked", G_CALLBACK(leerMoverPagIzq), &miApp);
     g_signal_connect(G_OBJECT(miApp.botDer), "clicked", G_CALLBACK(leerMoverPagDer), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botMarcar), "clicked", G_CALLBACK(marcarMarcadorMarcado), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botAnexar), "clicked", G_CALLBACK(anexarIndice), &miApp);
+    g_signal_connect(G_OBJECT(miApp.botsalyGuar), "clicked", G_CALLBACK(guardarArbolTxt), &miApp);
 
     //4. Definiendo jerarquias
     gtk_box_pack_start_defaults(GTK_BOX(vBox1), bienvenidoLbl);
@@ -338,6 +374,22 @@ int main(int argc, char *argv[])
     gtk_box_pack_start_defaults(GTK_BOX(hBox41), miApp.avBotSig);
     gtk_box_pack_start_defaults(GTK_BOX(vBox4), hBox41);
     gtk_container_add(GTK_CONTAINER(window4), vBox4);
+
+    gtk_box_pack_start_defaults(GTK_BOX(vBox10), avisoLbl2);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox10), texto1Lbl2);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox10), texto2Lbl2);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox101), miApp.avBotReg2);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox101), miApp.avBotSig2);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox10), hBox101);
+    gtk_container_add(GTK_CONTAINER(window10), vBox10);
+
+    gtk_box_pack_start_defaults(GTK_BOX(vBox11), avisoLbl3);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox11), texto1Lbl3);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox11), texto2Lbl3);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox111), miApp.avBotReg3);
+    gtk_box_pack_start_defaults(GTK_BOX(hBox111), miApp.avBotSig3);
+    gtk_box_pack_start_defaults(GTK_BOX(vBox11), hBox111);
+    gtk_container_add(GTK_CONTAINER(window11), vBox11);
 
     gtk_box_pack_start_defaults(GTK_BOX(hBox51), seccLbl);
     gtk_box_pack_start_defaults(GTK_BOX(hBox51), miApp.seccNum);

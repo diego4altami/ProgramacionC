@@ -78,6 +78,8 @@ struct appGTK
   arbolote *raiz;
   GtkWidget *titulo, *numSecc, *botRegresar, *botCrear;
   GtkWidget *avBotReg, *avBotSig;
+  GtkWidget *avBotReg2, *avBotSig2;
+  GtkWidget *avBotReg3, *avBotSig3;
   GtkWidget *edTitLbl, *edSeccLbl, *edPagLbl, *edBotReg, *edBotEdit;
   GtkWidget *btoSeccSig, *botSeccReg, *nomSecc, *seccNum, *botSigSeccNom;
   GtkWidget *botSigPag, *botReg, *botInsertarImg, *botGurdaryVer, *botSigSecc, *texto;

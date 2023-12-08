@@ -781,16 +781,16 @@ extern arbolote *insetarEnArbol(char indice[], int numPag, arbolote *root)
         aux = nuevo;
         return aux;  
     }
-    
     printf("\nAqui se tiene que ver lo que escribí en el índice %s\n", nuevo->indice);
     printf("\nAqui se tiene que ver la página del índice %i\n", nuevo->arbNumPag);
-    
     if(strcmp(indice, nuevo->indice) < 0) 
-    {
+    {   
+        printf("prueba");
         aux->der = insetarEnArbol(indice, numPag, aux->der);
     } 
     else if (strcmp(indice, nuevo->indice) > 0)
     {
+        printf("prueba2");
         aux->izq = insetarEnArbol(indice, numPag, aux->izq);
     }
     
